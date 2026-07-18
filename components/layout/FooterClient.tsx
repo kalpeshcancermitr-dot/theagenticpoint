@@ -57,40 +57,48 @@ export default function FooterClient({ contactEmail, twitterUrl, linkedinUrl, gi
   ].filter((s) => s.href);
 
   return (
-    <footer className="relative border-t border-white/8 bg-brand-surface">
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+    <footer
+      className="relative"
+      style={{ background: '#0b0c0e', borderTop: '1px solid #172540' }}
+    >
+      {/* Top hairline accent */}
+      <div
+        className="absolute top-0 left-0 right-0 h-px"
+        style={{ background: 'linear-gradient(to right, transparent, rgba(98,95,255,0.3), transparent)' }}
+      />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-8">
           {/* Brand column */}
           <div className="lg:col-span-2 space-y-6">
-            <Link href="/" className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-primary-gradient flex items-center justify-center shadow-glow-sm">
-                <Zap size={18} className="text-white fill-white" />
+            <Link href="/" className="flex items-center gap-2">
+              <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-pulse-violet to-accent flex items-center justify-center">
+                <Zap size={14} className="text-white fill-white" />
               </div>
-              <span className="font-tight font-bold text-2xl text-white tracking-tight">
+              <span className="font-display font-semibold text-[17px] text-quartz tracking-tight">
                 Agentic<span className="gradient-text">Point</span>
               </span>
             </Link>
 
-            <p className="text-brand-secondary text-sm leading-relaxed max-w-xs">
+            <p className="text-ash leading-relaxed max-w-xs" style={{ fontSize: '13px', fontWeight: 300 }}>
               An AI Automation Studio building intelligent systems that automate business operations, streamline workflows, and create exceptional customer experiences.
             </p>
 
-            <div className="space-y-3">
-              <p className="text-xs uppercase tracking-widest text-brand-secondary font-medium">Get in touch</p>
+            <div className="space-y-2">
+              <p className="section-label">Get in touch</p>
               <a
                 href={`mailto:${contactEmail}`}
-                className="flex items-center gap-2 text-sm text-brand-secondary hover:text-white transition-colors group"
+                className="flex items-center gap-2 text-ash hover:text-quartz transition-colors group"
+                style={{ fontSize: '13px' }}
               >
-                <Mail size={14} className="text-primary" />
+                <Mail size={13} className="text-frosted-lilac" />
                 <span>{contactEmail}</span>
-                <ArrowRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity -ml-1" />
+                <ArrowRight size={11} className="opacity-0 group-hover:opacity-100 transition-opacity" />
               </a>
             </div>
 
             {socialLinks.length > 0 && (
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
                 {socialLinks.map(({ icon: Icon, href, label }) => (
                   <a
                     key={label}
@@ -98,9 +106,10 @@ export default function FooterClient({ contactEmail, twitterUrl, linkedinUrl, gi
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={label}
-                    className="w-9 h-9 rounded-lg border border-white/10 flex items-center justify-center text-brand-secondary hover:text-white hover:border-white/20 hover:bg-white/6 transition-all duration-200"
+                    className="w-8 h-8 rounded-lg flex items-center justify-center text-ash hover:text-quartz transition-colors duration-150"
+                    style={{ background: '#0d172b', border: '1px solid #172540' }}
                   >
-                    <Icon size={16} />
+                    <Icon size={14} />
                   </a>
                 ))}
               </div>
@@ -111,13 +120,14 @@ export default function FooterClient({ contactEmail, twitterUrl, linkedinUrl, gi
           <div className="lg:col-span-3 grid grid-cols-2 sm:grid-cols-4 gap-8">
             {Object.entries(footerLinks).map(([category, links]) => (
               <div key={category} className="space-y-4">
-                <h3 className="font-tight font-semibold text-sm text-white">{category}</h3>
+                <h3 className="text-quartz font-medium" style={{ fontSize: '13px' }}>{category}</h3>
                 <ul className="space-y-2.5">
                   {links.map((link) => (
                     <li key={link.href}>
                       <Link
                         href={link.href}
-                        className="text-sm text-brand-secondary hover:text-white transition-colors duration-200 block"
+                        className="text-ash hover:text-quartz transition-colors duration-150 block"
+                        style={{ fontSize: '13px', fontWeight: 300 }}
                       >
                         {link.label}
                       </Link>
@@ -130,14 +140,16 @@ export default function FooterClient({ contactEmail, twitterUrl, linkedinUrl, gi
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-16 pt-8 border-t border-white/8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-brand-secondary">
+        <div
+          className="mt-14 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4"
+          style={{ borderTop: '1px solid #172540' }}
+        >
+          <p className="text-ash" style={{ fontSize: '13px', fontWeight: 300 }}>
             &copy; {new Date().getFullYear()} AgenticPoint. All rights reserved.
           </p>
-          <div className="flex items-center gap-1">
-            <span className="text-sm text-brand-secondary">Building AI Employees for Modern Businesses</span>
-            <span className="text-primary ml-1">&#9670;</span>
-          </div>
+          <p className="text-ash" style={{ fontSize: '13px', fontWeight: 300 }}>
+            Building AI Employees for Modern Businesses
+          </p>
         </div>
       </div>
     </footer>

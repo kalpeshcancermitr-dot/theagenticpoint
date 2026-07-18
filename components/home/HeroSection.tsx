@@ -3,64 +3,85 @@ import { ArrowRight, CheckCircle2, TrendingUp, Zap } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 
 const activityFeed = [
-  { icon: '⚡', text: 'Lead qualified via WhatsApp', color: 'text-green-400' },
-  { icon: '📄', text: 'Invoice processed automatically', color: 'text-yellow-400' },
-  { icon: '📅', text: 'Appointment booked, calendar synced', color: 'text-accent' },
-  { icon: '🎯', text: 'Support ticket resolved by AI', color: 'text-primary' },
-  { icon: '📧', text: 'Follow-up email sent to prospect', color: 'text-orange-400' },
+  { label: 'Lead qualified via WhatsApp', time: '2s ago' },
+  { label: 'Invoice processed automatically', time: '8s ago' },
+  { label: 'Appointment booked, calendar synced', time: '14s ago' },
+  { label: 'Support ticket resolved by AI', time: '21s ago' },
+  { label: 'Follow-up email sent to prospect', time: '35s ago' },
 ];
 
 function ExampleDashboard() {
   return (
-    <div className="relative w-full max-w-sm mx-auto lg:mx-0 animate-float">
-      <div className="absolute -inset-4 bg-gradient-to-br from-primary/10 via-transparent to-accent/10 rounded-3xl blur-2xl" />
+    <div className="relative w-full max-w-[400px] mx-auto lg:mx-0 animate-float">
+      {/* Subtle glow behind the card */}
+      <div
+        className="absolute -inset-8 opacity-30 pointer-events-none"
+        style={{
+          background: 'radial-gradient(circle at 50% 50%, rgba(98,95,255,0.25) 0%, transparent 70%)',
+          filter: 'blur(30px)',
+        }}
+      />
 
-      <div className="relative glass-strong rounded-2xl border border-white/12 overflow-hidden shadow-card">
-        {/* Header */}
-        <div className="flex items-center justify-between px-4 py-3.5 border-b border-white/8 bg-white/3">
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-lg bg-primary-gradient flex items-center justify-center">
-              <Zap size={12} className="text-white fill-white" />
-            </div>
-            <span className="font-tight font-semibold text-sm text-white">AI Automation Dashboard</span>
-          </div>
-          <span className="text-xs text-brand-secondary/60 italic">Example</span>
+      <div
+        className="relative rounded-xl overflow-hidden"
+        style={{
+          background: '#0d172b',
+          border: '1px solid #151e32',
+          boxShadow: 'rgba(0,0,0,0.5) 0px 20px 35px 0px, rgba(0,0,0,0.25) 0px 4px 13px 0px',
+        }}
+      >
+        {/* Window chrome */}
+        <div
+          className="flex items-center gap-1.5 px-4 py-3 border-b"
+          style={{ borderColor: '#151e32', background: '#0e111b' }}
+        >
+          <div className="w-2.5 h-2.5 rounded-full bg-slate/60" />
+          <div className="w-2.5 h-2.5 rounded-full bg-slate/60" />
+          <div className="w-2.5 h-2.5 rounded-full bg-slate/60" />
+          <span className="ml-2 text-[12px] font-mono text-ash/60">AI Automation Dashboard — Example</span>
         </div>
 
-        {/* Metrics */}
-        <div className="grid grid-cols-3 gap-px bg-white/5 border-b border-white/8">
+        {/* Metrics row */}
+        <div className="grid grid-cols-3 gap-px" style={{ background: '#0e111b' }}>
           {[
-            { value: '247', label: 'Leads Today', icon: TrendingUp, color: 'text-primary' },
-            { value: '78%', label: 'Auto-Resolved', icon: CheckCircle2, color: 'text-brand-success' },
-            { value: '14.2h', label: 'Time Saved', icon: Zap, color: 'text-accent' },
-          ].map(({ value, label, icon: Icon, color }) => (
-            <div key={label} className="flex flex-col items-center justify-center gap-1 py-3.5 bg-brand-surface/50">
-              <Icon size={13} className={color} />
-              <span className={`font-tight font-bold text-base ${color}`}>{value}</span>
-              <span className="text-xs text-brand-secondary leading-none text-center">{label}</span>
+            { value: '247', label: 'Leads Today', icon: TrendingUp },
+            { value: '78%', label: 'Auto-Resolved', icon: CheckCircle2 },
+            { value: '14.2h', label: 'Time Saved', icon: Zap },
+          ].map(({ value, label, icon: Icon }) => (
+            <div
+              key={label}
+              className="flex flex-col items-center justify-center gap-1 py-4"
+              style={{ background: '#0d172b' }}
+            >
+              <Icon size={12} className="text-frosted-lilac" />
+              <span className="font-display font-semibold text-[18px] text-quartz leading-none">{value}</span>
+              <span className="text-[11px] text-ash text-center leading-tight">{label}</span>
             </div>
           ))}
         </div>
 
         {/* Activity feed */}
         <div className="p-4 space-y-2">
-          <p className="text-xs font-medium text-brand-secondary/60 uppercase tracking-wider mb-3">Example Activity</p>
+          <p className="section-label mb-3">Live Activity</p>
           {activityFeed.map((item, i) => (
-            <div key={i} className="flex items-center gap-2.5">
-              <span className="text-sm shrink-0">{item.icon}</span>
-              <div className="flex-1 min-w-0">
-                <p className="text-xs text-brand-secondary truncate">{item.text}</p>
+            <div key={i} className="flex items-center justify-between gap-3">
+              <div className="flex items-center gap-2 min-w-0">
+                <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: '#625fff' }} />
+                <span className="text-[12px] text-mist truncate">{item.label}</span>
               </div>
-              <span className="text-xs text-brand-secondary/30 shrink-0 font-mono">—</span>
+              <span className="text-[11px] font-mono text-slate shrink-0">{item.time}</span>
             </div>
           ))}
         </div>
 
-        {/* Status bar */}
+        {/* Status footer */}
         <div className="px-4 pb-4">
-          <div className="flex items-center justify-between px-3 py-2 rounded-lg bg-brand-success/8 border border-brand-success/20">
-            <span className="text-xs text-brand-success font-medium">Illustrative scenario</span>
-            <span className="font-mono text-xs text-brand-secondary">your data here</span>
+          <div
+            className="flex items-center justify-between px-3 py-2 rounded-lg"
+            style={{ background: 'rgba(98,95,255,0.08)', border: '1px solid rgba(98,95,255,0.2)' }}
+          >
+            <span className="text-[11px] font-mono text-frosted-lilac">illustrative scenario</span>
+            <span className="text-[11px] font-mono text-slate">your data here</span>
           </div>
         </div>
       </div>
@@ -87,76 +108,85 @@ export default async function HeroSection() {
   const ctaText = settings['hero_cta_primary'] || 'Book Discovery Call';
 
   const stats = [
-    {
-      value: settings['hero_stat_1_value'] || '50+',
-      label: settings['hero_stat_1_label'] || 'AI Systems Deployed',
-    },
-    {
-      value: settings['hero_stat_2_value'] || '10x',
-      label: settings['hero_stat_2_label'] || 'Average ROI',
-    },
-    {
-      value: settings['hero_stat_3_value'] || '2-4 wks',
-      label: settings['hero_stat_3_label'] || 'To Production',
-    },
+    { value: settings['hero_stat_1_value'] || '50+', label: settings['hero_stat_1_label'] || 'AI Systems Deployed' },
+    { value: settings['hero_stat_2_value'] || '10x', label: settings['hero_stat_2_label'] || 'Average ROI' },
+    { value: settings['hero_stat_3_value'] || '2–4 wks', label: settings['hero_stat_3_label'] || 'To Production' },
   ];
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 grid-bg opacity-40" />
-        <div
-          className="absolute top-0 left-0 w-[700px] h-[700px] rounded-full opacity-15 animate-pulse-glow"
-          style={{ background: 'radial-gradient(circle, #4F8CFF 0%, transparent 65%)', transform: 'translate(-30%, -30%)' }}
-        />
-        <div
-          className="absolute bottom-0 right-0 w-[600px] h-[600px] rounded-full opacity-10 animate-pulse-glow animation-delay-500"
-          style={{ background: 'radial-gradient(circle, #6EE7F9 0%, transparent 65%)', transform: 'translate(30%, 30%)' }}
-        />
-        <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-brand-bg to-transparent" />
-      </div>
+    <section className="relative min-h-screen flex items-center overflow-hidden" style={{ background: '#0b0c0e' }}>
+      {/* Aurora glows */}
+      <div className="aurora-purple absolute inset-0 pointer-events-none" />
+      <div className="aurora-pink absolute inset-0 pointer-events-none" />
+
+      {/* Subtle grid */}
+      <div className="absolute inset-0 grid-bg opacity-30 pointer-events-none" />
+
+      {/* Bottom fade */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-40 pointer-events-none"
+        style={{ background: 'linear-gradient(to top, #0b0c0e, transparent)' }}
+      />
 
       {/* Content */}
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 w-full">
-        <div className="grid lg:grid-cols-2 gap-12 xl:gap-20 items-center">
+      <div className="relative max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20 w-full">
+        <div className="grid lg:grid-cols-2 gap-16 xl:gap-24 items-center">
           {/* Left */}
           <div className="space-y-8 animate-fade-up">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-medium uppercase tracking-wider">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+            {/* Eyebrow */}
+            <div className="badge-primary">
+              <span className="w-1.5 h-1.5 rounded-full bg-frosted-lilac animate-pulse" />
               AI Automation Studio
             </div>
 
-            <div className="space-y-2">
-              <h1 className="font-tight font-extrabold text-[2.6rem] sm:text-5xl lg:text-[3.25rem] xl:text-[3.75rem] text-white tracking-[-0.03em] leading-[1.08] whitespace-pre-line">
+            {/* Headline */}
+            <div className="space-y-5">
+              <h1
+                className="text-quartz whitespace-pre-line"
+                style={{
+                  fontFamily: 'Figtree, DM Sans, sans-serif',
+                  fontWeight: 500,
+                  fontSize: 'clamp(40px, 5.5vw, 64px)',
+                  lineHeight: 1.08,
+                  letterSpacing: '-1.28px',
+                }}
+              >
                 {headline}
               </h1>
-              <p className="text-lg text-brand-secondary max-w-lg leading-relaxed pt-2">
+              <p className="text-ash leading-relaxed max-w-lg" style={{ fontSize: '16px', fontWeight: 300 }}>
                 {subheadline}
               </p>
             </div>
 
+            {/* CTAs */}
             <div className="flex flex-wrap items-center gap-3">
-              <Link
-                href="/contact"
-                className="group flex items-center gap-2 px-6 py-3 rounded-xl bg-primary-gradient text-white font-semibold text-sm shadow-glow hover:shadow-glow-lg transition-all duration-300 hover:scale-105 active:scale-100"
-              >
+              <Link href="/contact" className="btn-primary">
                 {ctaText}
-                <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
+                <ArrowRight size={14} />
               </Link>
-              <Link
-                href="/playground"
-                className="flex items-center gap-2 px-6 py-3 rounded-xl border border-white/15 text-white font-semibold text-sm hover:bg-white/5 hover:border-white/25 transition-all duration-200"
-              >
+              <Link href="/playground" className="btn-ghost">
                 Explore Live Demos
               </Link>
             </div>
 
-            <div className="flex flex-wrap items-center gap-x-6 gap-y-3 pt-2">
+            {/* Stats */}
+            <div className="flex flex-wrap items-center gap-x-8 gap-y-3 pt-2">
               {stats.map(({ value, label }) => (
-                <div key={label} className="flex items-center gap-2">
-                  <span className="font-tight font-bold text-xl text-white">{value}</span>
-                  <span className="text-sm text-brand-secondary">{label}</span>
+                <div key={label} className="space-y-0.5">
+                  <div
+                    className="text-quartz"
+                    style={{
+                      fontFamily: 'Figtree, DM Sans, sans-serif',
+                      fontWeight: 500,
+                      fontSize: '24px',
+                      letterSpacing: '-0.5px',
+                    }}
+                  >
+                    {value}
+                  </div>
+                  <div className="text-ash" style={{ fontSize: '13px', fontWeight: 300 }}>
+                    {label}
+                  </div>
                 </div>
               ))}
             </div>

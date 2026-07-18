@@ -39,49 +39,73 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section className="section-pad bg-brand-bg">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="section-pad" style={{ background: '#0e111b' }}>
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="max-w-2xl mx-auto text-center mb-16 space-y-4">
-          <div className="badge-primary inline-flex">Our Process</div>
-          <h2 className="font-tight font-bold text-4xl lg:text-5xl text-white">
+          <p className="section-label">Our Process</p>
+          <h2
+            className="text-quartz"
+            style={{
+              fontFamily: 'Figtree, DM Sans, sans-serif',
+              fontWeight: 500,
+              fontSize: 'clamp(32px, 4vw, 48px)',
+              lineHeight: 1.13,
+              letterSpacing: '-0.96px',
+            }}
+          >
             From Idea to{' '}
             <span className="gradient-text">Production</span>
             {' '}in Weeks
           </h2>
-          <p className="text-brand-secondary text-lg">
+          <p className="text-ash" style={{ fontSize: '16px', fontWeight: 300, lineHeight: 1.5 }}>
             A structured, transparent process from discovery to deployment — designed to minimize risk and maximize impact.
           </p>
         </div>
 
         {/* Steps grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {steps.map((step, i) => (
             <div
               key={step.number}
-              className="group relative p-6 rounded-2xl border border-white/8 bg-brand-card/40 card-hover"
+              className="group relative card-hover"
+              style={{
+                background: '#0d172b',
+                border: '1px solid #172540',
+                borderRadius: '12px',
+                padding: '24px',
+              }}
             >
-              {/* Step number */}
-              <div className="font-mono text-5xl font-bold text-white/5 absolute top-4 right-5 select-none group-hover:text-primary/10 transition-colors duration-300">
+              {/* Big bg number */}
+              <div
+                className="font-mono font-bold absolute top-4 right-5 select-none pointer-events-none"
+                style={{ fontSize: '48px', color: 'rgba(255,255,255,0.03)', lineHeight: 1 }}
+              >
                 {step.number}
               </div>
 
               {/* Step indicator */}
-              <div className="relative flex items-center gap-3 mb-4">
-                <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
-                  <span className="font-mono text-xs font-semibold text-primary">{step.number}</span>
+              <div className="flex items-center gap-3 mb-5">
+                <div
+                  className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
+                  style={{ background: 'rgba(98,95,255,0.12)', border: '1px solid rgba(98,95,255,0.25)' }}
+                >
+                  <span className="font-mono text-[11px] font-semibold text-frosted-lilac">{step.number}</span>
                 </div>
                 {i < steps.length - 1 && (
-                  <div className="h-px flex-1 bg-gradient-to-r from-primary/20 to-transparent hidden lg:block" />
+                  <div
+                    className="h-px flex-1 hidden lg:block"
+                    style={{ background: 'linear-gradient(to right, rgba(98,95,255,0.2), transparent)' }}
+                  />
                 )}
               </div>
 
-              <h3 className="font-tight font-bold text-white text-xl mb-2">{step.title}</h3>
-              <p className="text-brand-secondary text-sm leading-relaxed mb-4">{step.description}</p>
+              <h3 className="text-quartz font-medium text-[17px] mb-2">{step.title}</h3>
+              <p className="text-ash mb-4 leading-relaxed" style={{ fontSize: '13px', fontWeight: 300 }}>{step.description}</p>
 
               <div className="flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand-success" />
-                <span className="text-xs text-brand-success font-medium">{step.detail}</span>
+                <span className="text-brand-success font-medium" style={{ fontSize: '12px' }}>{step.detail}</span>
               </div>
             </div>
           ))}
