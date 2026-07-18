@@ -3,7 +3,7 @@ import { getSettings } from '@/lib/getSettings';
 import ContactForm from './ContactForm';
 
 export const metadata: Metadata = {
-  title: 'Contact — Book a Free Discovery Call',
+  title: 'Contact AgenticPoint — Book a Free Discovery Call',
   description:
     'Book a free 30-minute AI strategy session with AgenticPoint. We will map your workflows and show you exactly what AI automation can do for your business.',
 };
