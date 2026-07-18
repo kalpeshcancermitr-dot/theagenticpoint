@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { ArrowRight, CheckCircle2, TrendingUp, Zap } from 'lucide-react';
-import { supabase } from '@/lib/supabase';
+import { getSettings } from '@/lib/getSettings';
 
 const activityFeed = [
   { icon: '⚡', text: 'Lead qualified via WhatsApp', color: 'text-green-400' },
@@ -66,15 +66,6 @@ function ExampleDashboard() {
       </div>
     </div>
   );
-}
-
-async function getSettings(): Promise<Record<string, string>> {
-  const { data } = await supabase.from('site_settings').select('key, value');
-  const map: Record<string, string> = {};
-  (data ?? []).forEach((row: { key: string; value: string }) => {
-    map[row.key] = row.value;
-  });
-  return map;
 }
 
 export default async function HeroSection() {

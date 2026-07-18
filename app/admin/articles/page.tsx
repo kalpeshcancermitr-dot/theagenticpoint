@@ -191,6 +191,7 @@ export default function ArticlesPage() {
   const [editTarget, setEditTarget] = useState<Partial<Article> | null>(null);
   const [saving, setSaving] = useState(false);
   const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [saveError, setSaveError] = useState('');
 
   const fetchArticles = async () => {
     setLoading(true);
@@ -204,21 +205,27 @@ export default function ArticlesPage() {
   const handleSave = async (form: Partial<Article>) => {
     setSaving(true);
     if (form.id) {
+      const { id, ...updateData } = form;
       const { error } = await supabase.from('articles').update({
-        ...form,
+        ...updateData,
         updated_at: new Date().toISOString(),
         published_at: form.status === 'published' ? (form.published_at ?? new Date().toISOString()) : null,
-      }).eq('id', form.id);
-      if (!error) {
-        setArticles((prev) => prev.map((a) => a.id === form.id ? { ...a, ...form } as Article : a));
+      }).eq('id', id);
+      if (error) {
+        setSaveError(error.message);
+      } else {
+        setArticles((prev) => prev.map((a) => a.id === id ? { ...a, ...form } as Article : a));
         setEditTarget(null);
       }
     } else {
+      const { id: _, ...insertData } = form;
       const { data, error } = await supabase.from('articles').insert({
-        ...form,
+        ...insertData,
         published_at: form.status === 'published' ? new Date().toISOString() : null,
       }).select().single();
-      if (!error && data) {
+      if (error) {
+        setSaveError(error.message);
+      } else if (data) {
         setArticles((prev) => [data as Article, ...prev]);
         setEditTarget(null);
       }
@@ -336,6 +343,13 @@ export default function ArticlesPage() {
           </table>
         )}
       </div>
+
+      {saveError && (
+        <div className="fixed bottom-6 right-6 z-[60] px-4 py-3 rounded-xl bg-red-500/15 border border-red-500/30 text-red-400 text-sm shadow-card max-w-sm">
+          {saveError}
+          <button onClick={() => setSaveError('')} className="ml-3 text-red-400/60 hover:text-red-400">Dismiss</button>
+        </div>
+      )}
 
       {editTarget !== null && (
         <ArticleForm

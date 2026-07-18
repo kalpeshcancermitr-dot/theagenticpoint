@@ -66,7 +66,7 @@ function ProjectCard({ project }: { project: Project }) {
 
       {/* Tech stack */}
       <div className="flex flex-wrap gap-1.5 mb-4">
-        {project.tech_stack.slice(0, 3).map((tech) => (
+        {(project.tech_stack ?? []).slice(0, 3).map((tech) => (
           <span
             key={tech}
             className="px-2 py-0.5 rounded-md bg-white/5 border border-white/8 text-xs text-brand-secondary font-mono"
@@ -74,9 +74,9 @@ function ProjectCard({ project }: { project: Project }) {
             {tech}
           </span>
         ))}
-        {project.tech_stack.length > 3 && (
+        {(project.tech_stack ?? []).length > 3 && (
           <span className="px-2 py-0.5 rounded-md bg-white/5 border border-white/8 text-xs text-brand-secondary">
-            +{project.tech_stack.length - 3} more
+            +{(project.tech_stack ?? []).length - 3} more
           </span>
         )}
       </div>

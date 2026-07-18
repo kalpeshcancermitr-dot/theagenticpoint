@@ -151,6 +151,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) {
         router.replace('/admin/login');
+        setChecking(false);
       } else {
         setUser({ email: session.user.email });
         setChecking(false);

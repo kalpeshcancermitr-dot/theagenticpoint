@@ -122,6 +122,7 @@ export default function TestimonialsAdminPage() {
   const [editTarget, setEditTarget] = useState<Partial<Testimonial> | null>(null);
   const [saving, setSaving] = useState(false);
   const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [saveError, setSaveError] = useState('');
 
   const fetchTestimonials = async () => {
     setLoading(true);
@@ -138,14 +139,20 @@ export default function TestimonialsAdminPage() {
   const handleSave = async (form: Partial<Testimonial>) => {
     setSaving(true);
     if (form.id) {
-      const { error } = await supabase.from('testimonials').update(form).eq('id', form.id);
-      if (!error) {
-        setTestimonials((prev) => prev.map((t) => t.id === form.id ? { ...t, ...form } as Testimonial : t));
+      const { id, ...updateData } = form;
+      const { error } = await supabase.from('testimonials').update(updateData).eq('id', id);
+      if (error) {
+        setSaveError(error.message);
+      } else {
+        setTestimonials((prev) => prev.map((t) => t.id === id ? { ...t, ...form } as Testimonial : t));
         setEditTarget(null);
       }
     } else {
-      const { data, error } = await supabase.from('testimonials').insert(form).select().single();
-      if (!error && data) {
+      const { id: _, ...insertData } = form;
+      const { data, error } = await supabase.from('testimonials').insert(insertData).select().single();
+      if (error) {
+        setSaveError(error.message);
+      } else if (data) {
         setTestimonials((prev) => [data as Testimonial, ...prev]);
         setEditTarget(null);
       }
@@ -262,6 +269,13 @@ export default function TestimonialsAdminPage() {
           </div>
         )}
       </div>
+
+      {saveError && (
+        <div className="fixed bottom-6 right-6 z-[60] px-4 py-3 rounded-xl bg-red-500/15 border border-red-500/30 text-red-400 text-sm shadow-card max-w-sm">
+          {saveError}
+          <button onClick={() => setSaveError('')} className="ml-3 text-red-400/60 hover:text-red-400">Dismiss</button>
+        </div>
+      )}
 
       {editTarget !== null && (
         <TestimonialForm

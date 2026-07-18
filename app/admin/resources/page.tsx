@@ -160,6 +160,7 @@ export default function ResourcesPage() {
   const [editTarget, setEditTarget] = useState<Partial<Resource> | null>(null);
   const [saving, setSaving] = useState(false);
   const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [saveError, setSaveError] = useState('');
 
   const fetchResources = async () => {
     setLoading(true);
@@ -173,14 +174,20 @@ export default function ResourcesPage() {
   const handleSave = async (form: Partial<Resource>) => {
     setSaving(true);
     if (form.id) {
-      const { error } = await supabase.from('resources').update(form).eq('id', form.id);
-      if (!error) {
-        setResources((prev) => prev.map((r) => r.id === form.id ? { ...r, ...form } as Resource : r));
+      const { id, ...updateData } = form;
+      const { error } = await supabase.from('resources').update(updateData).eq('id', id);
+      if (error) {
+        setSaveError(error.message);
+      } else {
+        setResources((prev) => prev.map((r) => r.id === id ? { ...r, ...form } as Resource : r));
         setEditTarget(null);
       }
     } else {
-      const { data, error } = await supabase.from('resources').insert(form).select().single();
-      if (!error && data) {
+      const { id: _, ...insertData } = form;
+      const { data, error } = await supabase.from('resources').insert(insertData).select().single();
+      if (error) {
+        setSaveError(error.message);
+      } else if (data) {
         setResources((prev) => [data as Resource, ...prev]);
         setEditTarget(null);
       }
@@ -297,6 +304,13 @@ export default function ResourcesPage() {
           </table>
         )}
       </div>
+
+      {saveError && (
+        <div className="fixed bottom-6 right-6 z-[60] px-4 py-3 rounded-xl bg-red-500/15 border border-red-500/30 text-red-400 text-sm shadow-card max-w-sm">
+          {saveError}
+          <button onClick={() => setSaveError('')} className="ml-3 text-red-400/60 hover:text-red-400">Dismiss</button>
+        </div>
+      )}
 
       {editTarget !== null && (
         <ResourceForm initial={editTarget} onSave={handleSave} onClose={() => setEditTarget(null)} saving={saving} />

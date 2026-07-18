@@ -54,6 +54,7 @@ export default function SettingsPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [saveError, setSaveError] = useState('');
 
   const fetchSettings = async () => {
     setLoading(true);
@@ -68,11 +69,15 @@ export default function SettingsPage() {
 
   const handleSave = async () => {
     setSaving(true);
+    setSaved(false);
     const upserts = Object.entries(settings).map(([key, value]) => ({ key, value, updated_at: new Date().toISOString() }));
     const { error } = await supabase.from('site_settings').upsert(upserts, { onConflict: 'key' });
     setSaving(false);
-    if (!error) {
+    if (error) {
+      setSaveError(`Failed to save settings: ${error.message}`);
+    } else {
       setSaved(true);
+      setSaveError('');
       setTimeout(() => setSaved(false), 3000);
     }
   };
@@ -156,6 +161,12 @@ export default function SettingsPage() {
               Open Supabase Dashboard →
             </a>
           </div>
+        </div>
+      )}
+      {saveError && (
+        <div className="fixed bottom-6 right-6 z-[60] px-4 py-3 rounded-xl bg-red-500/15 border border-red-500/30 text-red-400 text-sm shadow-card max-w-sm">
+          {saveError}
+          <button onClick={() => setSaveError('')} className="ml-3 text-red-400/60 hover:text-red-400">Dismiss</button>
         </div>
       )}
     </div>

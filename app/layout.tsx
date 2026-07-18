@@ -2,6 +2,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
+import { Toaster } from '@/components/ui/sonner';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://agenticpoint.com'),
@@ -53,6 +54,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Navbar />
         <main>{children}</main>
         <Footer />
+        <Toaster position="bottom-right" />
       </body>
     </html>
   );
