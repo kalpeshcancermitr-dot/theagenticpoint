@@ -2,16 +2,51 @@
 
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
-import { Settings, Save, Loader2, CheckCircle2, RefreshCw } from 'lucide-react';
+import { Settings, Save, Loader2, CheckCircle2, RefreshCw, Globe, Share2, BarChart3 } from 'lucide-react';
 
-type Setting = { key: string; value: string; label: string; description: string; type: 'text' | 'textarea' | 'email' };
+type SettingField = { key: string; label: string; description: string; type: 'text' | 'textarea' | 'email' | 'url' };
 
-const SETTINGS_SCHEMA: Setting[] = [
-  { key: 'company_name', label: 'Company Name', description: 'Your company name shown across the site.', type: 'text', value: '' },
-  { key: 'contact_email', label: 'Contact Email', description: 'Primary contact email displayed on the site.', type: 'email', value: '' },
-  { key: 'hero_headline', label: 'Hero Headline', description: 'Main headline on the homepage hero section.', type: 'text', value: '' },
-  { key: 'hero_subheadline', label: 'Hero Subheadline', description: 'Supporting text below the main headline.', type: 'textarea', value: '' },
-  { key: 'hero_cta_primary', label: 'Primary CTA Text', description: 'Text on the main call-to-action button.', type: 'text', value: '' },
+const SETTINGS_GROUPS: { title: string; icon: React.ElementType; fields: SettingField[] }[] = [
+  {
+    title: 'Site Content',
+    icon: Settings,
+    fields: [
+      { key: 'company_name', label: 'Company Name', description: 'Your company name shown across the site.', type: 'text' },
+      { key: 'contact_email', label: 'Contact Email', description: 'Primary contact email displayed on the site.', type: 'email' },
+      { key: 'hero_headline', label: 'Hero Headline', description: 'Main headline on the homepage hero section.', type: 'text' },
+      { key: 'hero_subheadline', label: 'Hero Subheadline', description: 'Supporting text below the main headline.', type: 'textarea' },
+      { key: 'hero_cta_primary', label: 'Primary CTA Text', description: 'Text on the main call-to-action button.', type: 'text' },
+    ],
+  },
+  {
+    title: 'Hero Stats',
+    icon: BarChart3,
+    fields: [
+      { key: 'hero_stat_1_value', label: 'Stat 1 Value', description: 'e.g. 50+', type: 'text' },
+      { key: 'hero_stat_1_label', label: 'Stat 1 Label', description: 'e.g. AI Systems Deployed', type: 'text' },
+      { key: 'hero_stat_2_value', label: 'Stat 2 Value', description: 'e.g. 10x', type: 'text' },
+      { key: 'hero_stat_2_label', label: 'Stat 2 Label', description: 'e.g. Average ROI', type: 'text' },
+      { key: 'hero_stat_3_value', label: 'Stat 3 Value', description: 'e.g. 2-4 wks', type: 'text' },
+      { key: 'hero_stat_3_label', label: 'Stat 3 Label', description: 'e.g. To Production', type: 'text' },
+    ],
+  },
+  {
+    title: 'Contact & Booking',
+    icon: Globe,
+    fields: [
+      { key: 'calendly_url', label: 'Calendly URL', description: 'Full URL for your Calendly booking page.', type: 'url' },
+      { key: 'whatsapp_number', label: 'WhatsApp Number', description: 'Phone number in international format (e.g. 447911123456). Used to build the wa.me link.', type: 'text' },
+    ],
+  },
+  {
+    title: 'Social Links',
+    icon: Share2,
+    fields: [
+      { key: 'social_twitter_url', label: 'Twitter / X URL', description: 'Full URL e.g. https://twitter.com/agenticpoint. Leave empty to hide icon.', type: 'url' },
+      { key: 'social_linkedin_url', label: 'LinkedIn URL', description: 'Full URL e.g. https://linkedin.com/company/agenticpoint. Leave empty to hide icon.', type: 'url' },
+      { key: 'social_github_url', label: 'GitHub URL', description: 'Full URL e.g. https://github.com/agenticpoint. Leave empty to hide icon.', type: 'url' },
+    ],
+  },
 ];
 
 export default function SettingsPage() {
@@ -73,37 +108,39 @@ export default function SettingsPage() {
         </div>
       ) : (
         <div className="space-y-5 max-w-2xl">
-          <div className="rounded-2xl border border-white/8 bg-brand-card/30 overflow-hidden">
-            <div className="px-6 py-4 border-b border-white/8 flex items-center gap-2">
-              <Settings size={15} className="text-primary" />
-              <h2 className="font-tight font-semibold text-white">Site Content</h2>
-            </div>
-            <div className="p-6 space-y-6">
-              {SETTINGS_SCHEMA.map((schema) => (
-                <div key={schema.key} className="space-y-2">
-                  <div>
-                    <label className="text-sm font-medium text-white">{schema.label}</label>
-                    <p className="text-xs text-brand-secondary mt-0.5">{schema.description}</p>
+          {SETTINGS_GROUPS.map(({ title, icon: Icon, fields }) => (
+            <div key={title} className="rounded-2xl border border-white/8 bg-brand-card/30 overflow-hidden">
+              <div className="px-6 py-4 border-b border-white/8 flex items-center gap-2">
+                <Icon size={15} className="text-primary" />
+                <h2 className="font-tight font-semibold text-white">{title}</h2>
+              </div>
+              <div className="p-6 space-y-6">
+                {fields.map((field) => (
+                  <div key={field.key} className="space-y-2">
+                    <div>
+                      <label className="text-sm font-medium text-white">{field.label}</label>
+                      <p className="text-xs text-brand-secondary mt-0.5">{field.description}</p>
+                    </div>
+                    {field.type === 'textarea' ? (
+                      <textarea
+                        value={settings[field.key] ?? ''}
+                        onChange={(e) => setSettings((s) => ({ ...s, [field.key]: e.target.value }))}
+                        rows={3}
+                        className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-primary/50 resize-none"
+                      />
+                    ) : (
+                      <input
+                        type={field.type}
+                        value={settings[field.key] ?? ''}
+                        onChange={(e) => setSettings((s) => ({ ...s, [field.key]: e.target.value }))}
+                        className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-primary/50"
+                      />
+                    )}
                   </div>
-                  {schema.type === 'textarea' ? (
-                    <textarea
-                      value={settings[schema.key] ?? ''}
-                      onChange={(e) => setSettings((s) => ({ ...s, [schema.key]: e.target.value }))}
-                      rows={3}
-                      className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-primary/50 resize-none"
-                    />
-                  ) : (
-                    <input
-                      type={schema.type}
-                      value={settings[schema.key] ?? ''}
-                      onChange={(e) => setSettings((s) => ({ ...s, [schema.key]: e.target.value }))}
-                      className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-primary/50"
-                    />
-                  )}
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
+          ))}
 
           <div className="rounded-2xl border border-white/8 bg-brand-card/30 p-6 space-y-3">
             <h2 className="font-tight font-semibold text-white">Admin Account</h2>

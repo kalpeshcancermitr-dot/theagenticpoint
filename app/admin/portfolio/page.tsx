@@ -14,6 +14,7 @@ type Project = {
   outcome: string | null;
   tech_stack: string[];
   is_featured: boolean;
+  is_case_study: boolean;
   sort_order: number;
   created_at: string;
 };
@@ -37,7 +38,7 @@ function ProjectForm({
 }) {
   const [form, setForm] = useState<Partial<Project>>({
     title: '', slug: '', category: '', challenge: '', solution: '', outcome: '',
-    tech_stack: [], is_featured: false, sort_order: 0, ...initial,
+    tech_stack: [], is_featured: false, is_case_study: false, sort_order: 0, ...initial,
   });
   const [techInput, setTechInput] = useState((initial.tech_stack ?? []).join(', '));
 
@@ -123,6 +124,20 @@ function ProjectForm({
               >
                 <option value="no">Not Featured</option>
                 <option value="yes">Featured on Homepage</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-1.5">
+              <label className="text-xs font-medium text-brand-secondary uppercase tracking-wider">Type</label>
+              <select
+                value={form.is_case_study ? 'yes' : 'no'}
+                onChange={(e) => set('is_case_study', e.target.value === 'yes')}
+                className="w-full px-4 py-2.5 rounded-xl bg-brand-card border border-white/10 text-white text-sm focus:outline-none focus:border-primary/50"
+              >
+                <option value="no">Example Scenario</option>
+                <option value="yes">Verified Case Study</option>
               </select>
             </div>
           </div>

@@ -28,7 +28,7 @@ export default function CTASection() {
 
         {/* Sub */}
         <p className="text-xl text-brand-secondary max-w-2xl mx-auto leading-relaxed">
-          Book a free 30-minute strategy session. We'll map your workflows, identify automation opportunities, and show you exactly what AI can do for your business.
+          Book a free 30-minute strategy session. We&apos;ll map your workflows, identify automation opportunities, and show you exactly what AI can do for your business.
         </p>
 
         {/* CTAs */}

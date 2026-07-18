@@ -4,6 +4,7 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://agenticpoint.com'),
   title: {
     default: 'AgenticPoint — Building AI Employees for Modern Businesses',
     template: '%s | AgenticPoint',
@@ -28,13 +29,20 @@ export const metadata: Metadata = {
     title: 'AgenticPoint — Building AI Employees for Modern Businesses',
     description:
       'AI Automation Studio designing intelligent systems that automate workflows, streamline operations, and create exceptional customer experiences.',
-    images: [{ url: 'https://bolt.new/static/og_default.png' }],
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'AgenticPoint — AI Automation Studio',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'AgenticPoint — Building AI Employees for Modern Businesses',
     description: 'AI Automation Studio building intelligent systems for real businesses.',
-    images: [{ url: 'https://bolt.new/static/og_default.png' }],
+    images: ['/og-image.png'],
   },
 };
 

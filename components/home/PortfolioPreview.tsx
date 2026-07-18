@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { ArrowRight, ExternalLink } from 'lucide-react';
+import { supabase } from '@/lib/supabase';
 
 type Project = {
   title: string;
@@ -9,6 +10,7 @@ type Project = {
   solution: string | null;
   outcome: string | null;
   tech_stack: string[];
+  is_case_study: boolean;
 };
 
 const categoryColors: Record<string, string> = {
@@ -29,11 +31,16 @@ function ProjectCard({ project }: { project: Project }) {
 
   return (
     <div className="group flex flex-col p-6 rounded-2xl border border-white/8 bg-brand-card/40 card-hover h-full">
-      {/* Category badge */}
-      <div className="mb-4">
+      {/* Badges */}
+      <div className="flex flex-wrap items-center gap-2 mb-4">
         <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium border ${colorClass}`}>
           {project.category}
         </span>
+        {!project.is_case_study && (
+          <span className="inline-block px-2.5 py-1 rounded-full text-xs font-medium border border-white/10 text-brand-secondary/60 bg-white/3">
+            Example scenario
+          </span>
+        )}
       </div>
 
       {/* Title */}
@@ -79,84 +86,41 @@ function ProjectCard({ project }: { project: Project }) {
         href={`/portfolio/${project.slug}`}
         className="flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary/80 transition-colors group/link"
       >
-        View case study
+        View details
         <ExternalLink size={13} className="group-hover/link:translate-x-0.5 transition-transform" />
       </Link>
     </div>
   );
 }
 
-const staticProjects: Project[] = [
-  {
-    title: 'WhatsApp Lead Qualification Agent',
-    slug: 'whatsapp-lead-qualification',
-    category: 'WhatsApp AI',
-    challenge: 'A real estate agency was manually screening 200+ daily WhatsApp inquiries, missing hot leads during off-hours.',
-    solution: 'Built an AI assistant that qualifies leads with a 7-question flow and routes hot prospects instantly.',
-    outcome: '68% reduction in response time, 3x increase in qualified meetings booked, 24/7 lead coverage.',
-    tech_stack: ['WhatsApp Business API', 'OpenAI GPT-4', 'n8n', 'Supabase', 'Twilio'],
-  },
-  {
-    title: 'Healthcare Follow-up Assistant',
-    slug: 'healthcare-followup-assistant',
-    category: 'Healthcare AI',
-    challenge: 'A medical clinic struggled with post-appointment follow-ups leading to poor patient adherence rates.',
-    solution: 'Deployed a HIPAA-aware AI assistant that sends personalized follow-ups and medication reminders.',
-    outcome: '40% improvement in patient adherence, 60% reduction in no-shows, staff saved 15 hours/week.',
-    tech_stack: ['Twilio', 'OpenAI', 'Supabase', 'n8n', 'Google Calendar API'],
-  },
-  {
-    title: 'Customer Support AI Platform',
-    slug: 'customer-support-ai',
-    category: 'AI Assistants',
-    challenge: 'An e-commerce brand was receiving 500+ daily support tickets with a 48-hour average response time.',
-    solution: 'Deployed a multi-channel AI support agent trained on product knowledge base across email, chat, and WhatsApp.',
-    outcome: '78% of tickets resolved without human intervention, response time dropped to 2 minutes.',
-    tech_stack: ['OpenAI GPT-4', 'Supabase pgvector', 'n8n', 'Intercom', 'Shopify API'],
-  },
-  {
-    title: 'Intelligent Appointment Booking Agent',
-    slug: 'appointment-booking-agent',
-    category: 'Business Automation',
-    challenge: 'A professional services firm was losing clients due to slow response to booking requests.',
-    solution: 'Built a conversational booking agent that checks availability, handles rescheduling, and syncs with Google Calendar.',
-    outcome: '90% of bookings now automated, zero scheduling conflicts, 4.9/5 client satisfaction.',
-    tech_stack: ['Google Calendar API', 'OpenAI', 'n8n', 'Supabase', 'Calendly'],
-  },
-  {
-    title: 'Invoice Processing System',
-    slug: 'invoice-processing-ai',
-    category: 'Document AI',
-    challenge: 'An accounting firm was spending 40+ hours/week manually extracting data from vendor invoices.',
-    solution: 'Built a document intelligence pipeline that extracts, validates, and reconciles invoice data automatically.',
-    outcome: '95% accuracy in extraction, 38 hours/week saved, payable cycle cut from 12 days to 3.',
-    tech_stack: ['Claude AI', 'n8n', 'Supabase', 'Google Cloud Vision', 'QuickBooks API'],
-  },
-  {
-    title: 'AI Proposal Generator',
-    slug: 'proposal-generator',
-    category: 'Internal AI Tools',
-    challenge: 'A B2B agency took 3-5 days to create custom proposals, losing deals to faster competitors.',
-    solution: 'Built an AI engine that generates tailored, branded proposals from a brief in under 10 minutes.',
-    outcome: 'Proposal creation time reduced from 3 days to 10 minutes, 45% higher win rate.',
-    tech_stack: ['OpenAI GPT-4', 'Anthropic Claude', 'n8n', 'Notion API', 'Google Docs API'],
-  },
-];
+async function getFeaturedProjects(): Promise<Project[]> {
+  const { data } = await supabase
+    .from('portfolio_projects')
+    .select('title, slug, category, challenge, solution, outcome, tech_stack, is_case_study')
+    .eq('is_featured', true)
+    .order('sort_order', { ascending: true })
+    .limit(6);
+  return (data as Project[]) ?? [];
+}
 
-export default function PortfolioPreview() {
+export default async function PortfolioPreview() {
+  const projects = await getFeaturedProjects();
+
+  if (projects.length === 0) return null;
+
   return (
     <section className="section-pad bg-brand-bg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
           <div className="space-y-3 max-w-lg">
-            <div className="badge-primary inline-flex">Portfolio</div>
+            <div className="badge-primary inline-flex">Capabilities</div>
             <h2 className="font-tight font-bold text-4xl lg:text-5xl text-white">
-              Real AI Systems,{' '}
-              <span className="gradient-text">Real Results</span>
+              What We Can Build{' '}
+              <span className="gradient-text">For You</span>
             </h2>
             <p className="text-brand-secondary">
-              Production systems we've built and deployed for real businesses.
+              Example use cases and system types we specialize in. These illustrate the kinds of AI automation we design and deploy.
             </p>
           </div>
           <Link
@@ -170,7 +134,7 @@ export default function PortfolioPreview() {
 
         {/* Projects grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {staticProjects.map((project) => (
+          {projects.map((project) => (
             <ProjectCard key={project.slug} project={project} />
           ))}
         </div>

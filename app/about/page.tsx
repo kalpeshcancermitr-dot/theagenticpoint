@@ -53,7 +53,7 @@ export default function AboutPage() {
               </h2>
               <div className="space-y-4 text-brand-secondary leading-relaxed">
                 <p>
-                  Large enterprises have had AI automation for years. They can afford armies of developers, consultants, and custom software. Small and mid-sized businesses couldn't.
+                  Large enterprises have had AI automation for years. They can afford armies of developers, consultants, and custom software. Small and mid-sized businesses couldn&apos;t.
                 </p>
                 <p>
                   AgenticPoint exists to close that gap. We bring the same level of intelligent automation — AI assistants, workflow orchestration, document intelligence — to businesses of every size, at a fraction of traditional costs.
@@ -148,8 +148,8 @@ export default function AboutPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
           <div className="badge-primary inline-flex">Our Philosophy</div>
           <blockquote className="font-tight font-bold text-4xl lg:text-5xl text-white leading-tight">
-            "We don&apos;t sell software.<br />
-            <span className="gradient-text">We build AI employees."</span>
+            &ldquo;We don&apos;t sell software.<br />
+            <span className="gradient-text">We build AI employees.&rdquo;</span>
           </blockquote>
           <p className="text-brand-secondary text-lg max-w-2xl mx-auto leading-relaxed">
             The businesses that thrive in the next decade will be those that leverage AI as a genuine operational resource — not just a feature. Our job is to make that transition practical, fast, and profitable.

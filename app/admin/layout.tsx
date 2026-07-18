@@ -7,7 +7,7 @@ import { supabase } from '@/lib/supabase';
 import {
   Zap, LayoutDashboard, Users, FileText, Package,
   Briefcase, Settings, LogOut, Menu, X, ChevronRight,
-  ExternalLink, Loader2
+  ExternalLink, Loader2, MessageSquare
 } from 'lucide-react';
 
 const navItems = [
@@ -16,6 +16,7 @@ const navItems = [
   { label: 'Articles', href: '/admin/articles', icon: FileText },
   { label: 'Resources', href: '/admin/resources', icon: Package },
   { label: 'Portfolio', href: '/admin/portfolio', icon: Briefcase },
+  { label: 'Testimonials', href: '/admin/testimonials', icon: MessageSquare },
   { label: 'Settings', href: '/admin/settings', icon: Settings },
 ];
 
@@ -169,6 +170,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     });
 
     return () => subscription.unsubscribe();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoginPage]);
 
   const handleLogout = async () => {
