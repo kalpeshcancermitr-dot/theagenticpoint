@@ -186,7 +186,7 @@ export default function SolutionsPage() {
                     <p className={`text-sm font-medium ${industry.color}`}>{industry.roi}</p>
                   </div>
                   <Link
-                    href="/contact"
+                    href={industry.href}
                     className={`flex items-center gap-1.5 text-sm font-semibold transition-all hover:scale-105 ${industry.color}`}
                   >
                     Explore Solution

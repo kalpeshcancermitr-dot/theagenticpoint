@@ -109,7 +109,9 @@ export default function ContactPage() {
                 </a>
 
                 <a
-                  href="#"
+                  href="https://calendly.com/agenticpoint/discovery"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center gap-3 p-4 rounded-xl border border-white/8 hover:border-white/20 hover:bg-white/4 transition-all group"
                 >
                   <div className="w-9 h-9 rounded-lg bg-accent/10 flex items-center justify-center">
@@ -123,7 +125,9 @@ export default function ContactPage() {
                 </a>
 
                 <a
-                  href="#"
+                  href="https://wa.me/1234567890?text=Hi%2C%20I%27d%20like%20to%20discuss%20AI%20automation%20for%20my%20business"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center gap-3 p-4 rounded-xl border border-white/8 hover:border-white/20 hover:bg-white/4 transition-all group"
                 >
                   <div className="w-9 h-9 rounded-lg bg-green-400/10 flex items-center justify-center">

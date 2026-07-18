@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { BookOpen, FileCode2, Lightbulb, Calculator, MessageSquare, ArrowRight, Download } from 'lucide-react';
 import CTASection from '@/components/home/CTASection';
+import NewsletterForm from '@/components/NewsletterForm';
 
 export const metadata: Metadata = {
   title: 'Resources — Automation Guides, Templates & Tools',
@@ -286,23 +287,5 @@ export default function ResourcesPage() {
 
       <CTASection />
     </div>
-  );
-}
-
-function NewsletterForm() {
-  return (
-    <form className="flex gap-3 max-w-md mx-auto">
-      <input
-        type="email"
-        placeholder="your@email.com"
-        className="flex-1 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-brand-secondary/50 text-sm focus:outline-none focus:border-primary/50 transition-colors"
-      />
-      <button
-        type="submit"
-        className="px-5 py-2.5 rounded-xl bg-primary-gradient text-white font-semibold text-sm shadow-glow-sm hover:shadow-glow transition-all hover:scale-105"
-      >
-        Subscribe
-      </button>
-    </form>
   );
 }
