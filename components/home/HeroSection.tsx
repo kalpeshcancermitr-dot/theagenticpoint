@@ -93,17 +93,17 @@ export default async function HeroSection() {
   ];
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center overflow-hidden noise">
       {/* Background */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 grid-bg opacity-40" />
         <div
-          className="absolute top-0 left-0 w-[700px] h-[700px] rounded-full opacity-15 animate-pulse-glow"
-          style={{ background: 'radial-gradient(circle, #4F8CFF 0%, transparent 65%)', transform: 'translate(-30%, -30%)' }}
+          className="aurora-orb w-[700px] h-[700px] opacity-20"
+          style={{ background: 'radial-gradient(circle, #4F8CFF 0%, transparent 65%)', top: '-15%', left: '-10%' }}
         />
         <div
-          className="absolute bottom-0 right-0 w-[600px] h-[600px] rounded-full opacity-10 animate-pulse-glow animation-delay-500"
-          style={{ background: 'radial-gradient(circle, #6EE7F9 0%, transparent 65%)', transform: 'translate(30%, 30%)' }}
+          className="aurora-orb w-[600px] h-[600px] opacity-15 animation-delay-500"
+          style={{ background: 'radial-gradient(circle, #6EE7F9 0%, transparent 65%)', bottom: '-10%', right: '-5%' }}
         />
         <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-brand-bg to-transparent" />
       </div>
@@ -130,7 +130,7 @@ export default async function HeroSection() {
             <div className="flex flex-wrap items-center gap-3">
               <Link
                 href="/contact"
-                className="group flex items-center gap-2 px-6 py-3 rounded-xl bg-primary-gradient text-white font-semibold text-sm shadow-glow hover:shadow-glow-lg transition-all duration-300 hover:scale-105 active:scale-100"
+                className="pill-cta group flex items-center gap-2 px-6 py-3 text-sm"
               >
                 {ctaText}
                 <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />

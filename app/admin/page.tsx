@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
-import { Users, FileText, Package, Briefcase, TrendingUp, Clock, ArrowRight, RefreshCw } from 'lucide-react';
+import { Users, FileText, Package, Briefcase, TrendingUp, Clock, ArrowRight, RefreshCw, Bot } from 'lucide-react';
 import Link from 'next/link';
 
 type Lead = {
@@ -21,6 +21,8 @@ type Stats = {
   articles: number;
   resources: number;
   portfolio: number;
+  agents: number;
+  agentConversations: number;
 };
 
 function StatCard({
@@ -74,18 +76,20 @@ const statusStyles: Record<string, string> = {
 };
 
 export default function AdminDashboard() {
-  const [stats, setStats] = useState<Stats>({ leads: 0, newLeads: 0, articles: 0, resources: 0, portfolio: 0 });
+  const [stats, setStats] = useState<Stats>({ leads: 0, newLeads: 0, articles: 0, resources: 0, portfolio: 0, agents: 0, agentConversations: 0 });
   const [recentLeads, setRecentLeads] = useState<Lead[]>([]);
   const [loading, setLoading] = useState(true);
 
   const fetchData = async () => {
     setLoading(true);
 
-    const [leadsRes, articlesRes, resourcesRes, portfolioRes] = await Promise.all([
+    const [leadsRes, articlesRes, resourcesRes, portfolioRes, agentsRes, agentConvoRes] = await Promise.all([
       supabase.from('contact_requests').select('id, name, email, company, service_interest, status, created_at').order('created_at', { ascending: false }).limit(10),
       supabase.from('articles').select('id', { count: 'exact', head: true }),
       supabase.from('resources').select('id', { count: 'exact', head: true }),
       supabase.from('portfolio_projects').select('id', { count: 'exact', head: true }),
+      supabase.from('agents').select('id', { count: 'exact', head: true }),
+      supabase.from('agent_conversations').select('id', { count: 'exact', head: true }),
     ]);
 
     const leads = leadsRes.data ?? [];
@@ -98,6 +102,8 @@ export default function AdminDashboard() {
       articles: articlesRes.count ?? 0,
       resources: resourcesRes.count ?? 0,
       portfolio: portfolioRes.count ?? 0,
+      agents: agentsRes.count ?? 0,
+      agentConversations: agentConvoRes.count ?? 0,
     });
     setRecentLeads(leads.slice(0, 8) as Lead[]);
     setLoading(false);
@@ -135,20 +141,20 @@ export default function AdminDashboard() {
           href="/admin/leads"
         />
         <StatCard
+          icon={Bot}
+          label="AI Agents"
+          value={loading ? '—' : stats.agents}
+          sub={stats.agentConversations > 0 ? `${stats.agentConversations} conversations` : 'No chats yet'}
+          color="text-accent"
+          href="/admin/agents"
+        />
+        <StatCard
           icon={FileText}
           label="Articles"
           value={loading ? '—' : stats.articles}
           sub="Published & drafts"
           color="text-accent"
           href="/admin/articles"
-        />
-        <StatCard
-          icon={Package}
-          label="Resources"
-          value={loading ? '—' : stats.resources}
-          sub="Templates & guides"
-          color="text-yellow-400"
-          href="/admin/resources"
         />
         <StatCard
           icon={Briefcase}
@@ -237,8 +243,8 @@ export default function AdminDashboard() {
       {/* Quick actions */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {[
+          { label: 'Create AI Agent', href: '/admin/agents', icon: Bot, color: 'text-accent', bg: 'bg-accent/10', border: 'border-accent/20' },
           { label: 'Write New Article', href: '/admin/articles', icon: FileText, color: 'text-accent', bg: 'bg-accent/10', border: 'border-accent/20' },
-          { label: 'Add Resource', href: '/admin/resources', icon: Package, color: 'text-yellow-400', bg: 'bg-yellow-400/10', border: 'border-yellow-400/20' },
           { label: 'Add Portfolio Project', href: '/admin/portfolio', icon: Briefcase, color: 'text-brand-success', bg: 'bg-brand-success/10', border: 'border-brand-success/20' },
         ].map(({ label, href, icon: Icon, color, bg, border }) => (
           <Link

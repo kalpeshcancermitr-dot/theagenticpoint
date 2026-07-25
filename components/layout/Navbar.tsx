@@ -73,7 +73,7 @@ export default function Navbar() {
             <div className="hidden lg:flex items-center gap-3">
               <Link
                 href="/contact"
-                className="px-5 py-2.5 rounded-xl bg-primary-gradient text-white text-sm font-semibold shadow-glow-sm hover:shadow-glow transition-all duration-200 hover:scale-105 active:scale-100"
+                className="pill-cta px-5 py-2.5 text-sm"
               >
                 Book Discovery Call
               </Link>
@@ -140,7 +140,7 @@ export default function Navbar() {
           <div className="p-5 border-t border-white/10">
             <Link
               href="/contact"
-              className="block w-full px-5 py-3 rounded-xl bg-primary-gradient text-white text-sm font-semibold text-center shadow-glow-sm"
+              className="pill-cta block w-full px-5 py-3 text-sm text-center"
             >
               Book Discovery Call
             </Link>

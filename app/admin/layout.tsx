@@ -7,12 +7,13 @@ import { supabase } from '@/lib/supabase';
 import {
   Zap, LayoutDashboard, Users, FileText, Package,
   Briefcase, Settings, LogOut, Menu, X, ChevronRight,
-  ExternalLink, Loader2, MessageSquare
+  ExternalLink, Loader2, MessageSquare, Bot
 } from 'lucide-react';
 
 const navItems = [
   { label: 'Dashboard', href: '/admin', icon: LayoutDashboard, exact: true },
   { label: 'Leads', href: '/admin/leads', icon: Users },
+  { label: 'AI Agents', href: '/admin/agents', icon: Bot },
   { label: 'Articles', href: '/admin/articles', icon: FileText },
   { label: 'Resources', href: '/admin/resources', icon: Package },
   { label: 'Portfolio', href: '/admin/portfolio', icon: Briefcase },
