@@ -23,7 +23,35 @@ export default async function PlaygroundPreview() {
       </div>
 
       <div className="relative max-w-page mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 xl:gap-16 items-center">
+        {/* Mobile layout: heading → phone → button (stacked) */}
+        <div className="lg:hidden space-y-8">
+          <div className="space-y-5 text-center">
+            <div className="badge-primary inline-flex items-center gap-1.5">
+              <Play size={11} />
+              Interactive Playground
+            </div>
+            <h2 className="font-tight font-semibold text-3xl text-white tracking-[-0.025em]">
+              {title}
+            </h2>
+            <p className="text-brand-secondary text-base font-light max-w-lg mx-auto">
+              {subtitle}
+            </p>
+          </div>
+
+          <div className="flex justify-center">
+            <PhonePreview />
+          </div>
+
+          <div className="flex justify-center">
+            <Link href="/playground" className="pill-cta flex items-center gap-2 group">
+              Try the Playground
+              <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+        </div>
+
+        {/* Desktop layout: two-column */}
+        <div className="hidden lg:grid lg:grid-cols-2 gap-12 xl:gap-16 items-center">
           <div className="space-y-6">
             <div className="badge-primary inline-flex items-center gap-1.5">
               <Play size={11} />

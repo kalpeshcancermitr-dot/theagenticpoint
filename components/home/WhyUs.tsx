@@ -1,4 +1,5 @@
 import { Clock, Shield, Zap, TrendingUp } from 'lucide-react';
+import MobileCarousel from '@/components/ui/mobile-carousel';
 
 const reasons = [
   {
@@ -22,6 +23,21 @@ const reasons = [
     description: 'AI systems need continuous tuning. We provide ongoing support, A/B testing, and optimization to keep performance improving over time.',
   },
 ];
+
+function ReasonCard({ reason }: { reason: typeof reasons[number] }) {
+  const Icon = reason.icon;
+  return (
+    <div className="card-elevated card-hover space-y-4 h-full">
+      <div className="w-10 h-10 rounded-xl surface-cobalt border border-brand-hairline flex items-center justify-center">
+        <Icon size={18} className="text-brand-primary" />
+      </div>
+      <div className="space-y-1.5">
+        <h3 className="font-tight font-medium text-white text-base">{reason.title}</h3>
+        <p className="text-sm text-brand-secondary leading-relaxed font-light">{reason.description}</p>
+      </div>
+    </div>
+  );
+}
 
 export default function WhyUs() {
   return (
@@ -52,21 +68,20 @@ export default function WhyUs() {
             </div>
           </div>
 
-          <div className="lg:col-span-7 grid sm:grid-cols-2 gap-4">
-            {reasons.map((reason) => {
-              const Icon = reason.icon;
-              return (
-                <div key={reason.title} className="card-elevated card-hover space-y-4">
-                  <div className="w-10 h-10 rounded-xl surface-cobalt border border-brand-hairline flex items-center justify-center">
-                    <Icon size={18} className="text-brand-primary" />
-                  </div>
-                  <div className="space-y-1.5">
-                    <h3 className="font-tight font-medium text-white text-base">{reason.title}</h3>
-                    <p className="text-sm text-brand-secondary leading-relaxed font-light">{reason.description}</p>
-                  </div>
-                </div>
-              );
-            })}
+          <div className="lg:col-span-7">
+            {/* Mobile carousel */}
+            <MobileCarousel className="mb-2">
+              {reasons.map((reason) => (
+                <ReasonCard key={reason.title} reason={reason} />
+              ))}
+            </MobileCarousel>
+
+            {/* Desktop grid */}
+            <div className="hidden sm:grid sm:grid-cols-2 gap-4">
+              {reasons.map((reason) => (
+                <ReasonCard key={reason.title} reason={reason} />
+              ))}
+            </div>
           </div>
         </div>
       </div>

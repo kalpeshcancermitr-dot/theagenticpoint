@@ -1,59 +1,39 @@
 import Link from 'next/link';
 import {
   MessageSquare, Bot, Mic, Workflow, Database, FileText,
-  Users, Mail, ArrowRight, Brain,
+  Users, Mail, ArrowRight, Brain, type LucideIcon
 } from 'lucide-react';
+import MobileCarousel from '@/components/ui/mobile-carousel';
 
-const services = [
-  {
-    icon: MessageSquare,
-    title: 'AI Assistants',
-    description: 'Custom AI assistants trained on your business knowledge to handle customer queries 24/7.',
-    href: '/services#assistants',
-  },
-  {
-    icon: Bot,
-    title: 'WhatsApp AI',
-    description: 'WhatsApp-based AI agents for lead qualification, customer support, and automated follow-ups.',
-    href: '/services#whatsapp',
-  },
-  {
-    icon: Mic,
-    title: 'Voice AI',
-    description: 'Intelligent voice agents that handle inbound calls, schedule appointments, and qualify prospects.',
-    href: '/services#voice',
-  },
-  {
-    icon: Workflow,
-    title: 'Business Automation',
-    description: 'End-to-end workflow automation connecting your tools, eliminating manual data entry.',
-    href: '/services#automation',
-  },
-  {
-    icon: Brain,
-    title: 'Internal AI Tools',
-    description: 'Custom AI tools for your team — proposal generators, research assistants, content engines.',
-    href: '/services#internal',
-  },
-  {
-    icon: Database,
-    title: 'CRM Automation',
-    description: 'Automate CRM data entry, lead scoring, pipeline updates, and follow-up sequences.',
-    href: '/services#crm',
-  },
-  {
-    icon: FileText,
-    title: 'Document Intelligence',
-    description: 'AI that reads, extracts, classifies, and processes documents at scale with 95%+ accuracy.',
-    href: '/services#document',
-  },
-  {
-    icon: Mail,
-    title: 'Email Automation',
-    description: 'Intelligent email agents that draft, send, follow up, and manage inbox workflows.',
-    href: '/services#email',
-  },
+const services: { icon: LucideIcon; title: string; description: string; href: string }[] = [
+  { icon: MessageSquare, title: 'AI Assistants', description: 'Custom AI assistants trained on your business knowledge to handle customer queries 24/7.', href: '/services#assistants' },
+  { icon: Bot, title: 'WhatsApp AI', description: 'WhatsApp-based AI agents for lead qualification, customer support, and automated follow-ups.', href: '/services#whatsapp' },
+  { icon: Mic, title: 'Voice AI', description: 'Intelligent voice agents that handle inbound calls, schedule appointments, and qualify prospects.', href: '/services#voice' },
+  { icon: Workflow, title: 'Business Automation', description: 'End-to-end workflow automation connecting your tools, eliminating manual data entry.', href: '/services#automation' },
+  { icon: Brain, title: 'Internal AI Tools', description: 'Custom AI tools for your team — proposal generators, research assistants, content engines.', href: '/services#internal' },
+  { icon: Database, title: 'CRM Automation', description: 'Automate CRM data entry, lead scoring, pipeline updates, and follow-up sequences.', href: '/services#crm' },
+  { icon: FileText, title: 'Document Intelligence', description: 'AI that reads, extracts, classifies, and processes documents at scale with 95%+ accuracy.', href: '/services#document' },
+  { icon: Mail, title: 'Email Automation', description: 'Intelligent email agents that draft, send, follow up, and manage inbox workflows.', href: '/services#email' },
 ];
+
+function ServiceCard({ service }: { service: typeof services[number] }) {
+  const Icon = service.icon;
+  return (
+    <Link href={service.href} className="group card-elevated card-hover flex flex-col gap-4 h-full">
+      <div className="w-10 h-10 rounded-xl surface-cobalt border border-brand-hairline flex items-center justify-center">
+        <Icon size={18} className="text-brand-primary" />
+      </div>
+      <div className="space-y-1.5 flex-1">
+        <h3 className="font-tight font-medium text-white text-base">{service.title}</h3>
+        <p className="text-sm text-brand-secondary leading-relaxed font-light">{service.description}</p>
+      </div>
+      <div className="flex items-center gap-1.5 text-xs font-medium text-brand-primary opacity-0 group-hover:opacity-100 transition-opacity">
+        Learn more
+        <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
+      </div>
+    </Link>
+  );
+}
 
 export default function WhatWeBuild() {
   return (
@@ -73,29 +53,18 @@ export default function WhatWeBuild() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {services.map((service) => {
-            const Icon = service.icon;
-            return (
-              <Link
-                key={service.title}
-                href={service.href}
-                className="group card-elevated card-hover flex flex-col gap-4"
-              >
-                <div className="w-10 h-10 rounded-xl surface-cobalt border border-brand-hairline flex items-center justify-center">
-                  <Icon size={18} className="text-brand-primary" />
-                </div>
-                <div className="space-y-1.5 flex-1">
-                  <h3 className="font-tight font-medium text-white text-base">{service.title}</h3>
-                  <p className="text-sm text-brand-secondary leading-relaxed font-light">{service.description}</p>
-                </div>
-                <div className="flex items-center gap-1.5 text-xs font-medium text-brand-primary opacity-0 group-hover:opacity-100 transition-opacity">
-                  Learn more
-                  <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
-                </div>
-              </Link>
-            );
-          })}
+        {/* Mobile carousel */}
+        <MobileCarousel className="mb-2">
+          {services.map((service) => (
+            <ServiceCard key={service.title} service={service} />
+          ))}
+        </MobileCarousel>
+
+        {/* Desktop grid */}
+        <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {services.map((service) => (
+            <ServiceCard key={service.title} service={service} />
+          ))}
         </div>
       </div>
     </section>

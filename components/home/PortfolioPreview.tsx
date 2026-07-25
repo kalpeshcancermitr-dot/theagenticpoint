@@ -1,25 +1,64 @@
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Briefcase } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
+import MobileCarousel from '@/components/ui/mobile-carousel';
 
 type Project = {
   slug: string;
   title: string;
   category: string;
-  excerpt: string;
+  outcome: string | null;
+  challenge: string | null;
   image_url: string | null;
 };
 
 async function getProjects(): Promise<Project[]> {
   const { data, error } = await supabase
-    .from('portfolio')
-    .select('slug, title, category, excerpt, image_url')
+    .from('portfolio_projects')
+    .select('slug, title, category, outcome, challenge')
     .eq('is_published', true)
     .order('sort_order', { ascending: true })
-    .limit(3);
+    .limit(6);
 
   if (error || !data) return [];
   return data as Project[];
+}
+
+function ProjectCard({ project }: { project: Project }) {
+  return (
+    <Link
+      href={`/portfolio/${project.slug}`}
+      className="group card-elevated card-hover overflow-hidden flex flex-col h-full"
+    >
+      <div className="relative aspect-[16/10] overflow-hidden surface-deep-sea">
+        {project.image_url ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={project.image_url}
+            alt={project.title}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        ) : (
+          <div className="w-full h-full grid-bg flex items-center justify-center">
+            <div className="w-12 h-12 rounded-xl surface-cobalt border border-brand-hairline flex items-center justify-center">
+              <Briefcase size={20} className="text-brand-primary" />
+            </div>
+          </div>
+        )}
+        <div className="absolute top-3 left-3">
+          <span className="badge-primary">{project.category}</span>
+        </div>
+      </div>
+      <div className="p-5 space-y-2 flex-1">
+        <h3 className="font-tight font-medium text-white text-lg group-hover:text-brand-primary transition-colors">
+          {project.title}
+        </h3>
+        <p className="text-sm text-brand-secondary leading-relaxed font-light line-clamp-2">
+          {project.outcome ?? project.challenge ?? 'See full case study for details.'}
+        </p>
+      </div>
+    </Link>
+  );
 }
 
 export default async function PortfolioPreview() {
@@ -49,41 +88,17 @@ export default async function PortfolioPreview() {
           </Link>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-4">
+        {/* Mobile carousel */}
+        <MobileCarousel className="mb-6">
           {projects.map((project) => (
-            <Link
-              key={project.slug}
-              href={`/portfolio/${project.slug}`}
-              className="group card-elevated card-hover overflow-hidden flex flex-col"
-            >
-              <div className="relative aspect-[16/10] overflow-hidden surface-deep-sea">
-                {project.image_url ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={project.image_url}
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                ) : (
-                  <div className="w-full h-full grid-bg flex items-center justify-center">
-                    <div className="w-12 h-12 rounded-xl surface-cobalt border border-brand-hairline flex items-center justify-center">
-                      <ArrowRight size={20} className="text-brand-primary" />
-                    </div>
-                  </div>
-                )}
-                <div className="absolute top-3 left-3">
-                  <span className="badge-primary">{project.category}</span>
-                </div>
-              </div>
-              <div className="p-5 space-y-2 flex-1">
-                <h3 className="font-tight font-medium text-white text-lg group-hover:text-brand-primary transition-colors">
-                  {project.title}
-                </h3>
-                <p className="text-sm text-brand-secondary leading-relaxed font-light line-clamp-2">
-                  {project.excerpt}
-                </p>
-              </div>
-            </Link>
+            <ProjectCard key={project.slug} project={project} />
+          ))}
+        </MobileCarousel>
+
+        {/* Desktop grid */}
+        <div className="hidden md:grid md:grid-cols-3 gap-4">
+          {projects.map((project) => (
+            <ProjectCard key={project.slug} project={project} />
           ))}
         </div>
       </div>

@@ -1,25 +1,56 @@
 import { Star, Quote } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
+import MobileCarousel from '@/components/ui/mobile-carousel';
 
 type Testimonial = {
   id: string;
-  author_name: string;
-  author_title: string;
-  company: string;
+  client_name: string;
+  client_title: string | null;
   content: string;
-  rating: number;
+  rating: number | null;
 };
 
 async function getTestimonials(): Promise<Testimonial[]> {
   const { data, error } = await supabase
     .from('testimonials')
-    .select('id, author_name, author_title, company, content, rating')
+    .select('id, client_name, client_title, content, rating')
     .eq('is_published', true)
-    .order('sort_order', { ascending: true })
+    .order('created_at', { ascending: false })
     .limit(6);
 
   if (error || !data) return [];
   return data as Testimonial[];
+}
+
+function TestimonialCard({ t }: { t: Testimonial }) {
+  return (
+    <div className="card-elevated card-hover space-y-4 flex flex-col h-full">
+      <Quote size={18} className="text-brand-primary shrink-0" />
+      <p className="text-sm text-brand-tertiary leading-relaxed font-light flex-1">
+        &ldquo;{t.content}&rdquo;
+      </p>
+      <div className="flex items-center gap-1 pt-2 border-t border-brand-inkline">
+        {Array.from({ length: 5 }).map((_, i) => (
+          <Star
+            key={i}
+            size={12}
+            className={i < (t.rating ?? 0) ? 'fill-brand-accent text-brand-accent' : 'text-brand-slate'}
+          />
+        ))}
+      </div>
+      <div className="flex items-center gap-3">
+        <div className="w-9 h-9 rounded-full surface-cobalt border border-brand-hairline flex items-center justify-center">
+          <span className="text-sm font-medium text-white">
+            {t.client_name.charAt(0).toUpperCase()}
+          </span>
+        </div>
+        <div>
+          <p className="text-sm text-white font-medium">{t.client_name}</p>
+          {t.client_title && <p className="text-xs text-brand-secondary">{t.client_title}</p>}
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default async function TestimonialsSection() {
@@ -41,34 +72,17 @@ export default async function TestimonialsSection() {
           </h2>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {/* Mobile carousel */}
+        <MobileCarousel className="mb-6">
           {testimonials.map((t) => (
-            <div key={t.id} className="card-elevated card-hover space-y-4 flex flex-col">
-              <Quote size={18} className="text-brand-primary shrink-0" />
-              <p className="text-sm text-brand-tertiary leading-relaxed font-light flex-1">
-                &ldquo;{t.content}&rdquo;
-              </p>
-              <div className="flex items-center gap-1 pt-2 border-t border-brand-inkline">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star
-                    key={i}
-                    size={12}
-                    className={i < t.rating ? 'fill-brand-accent text-brand-accent' : 'text-brand-slate'}
-                  />
-                ))}
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full surface-cobalt border border-brand-hairline flex items-center justify-center">
-                  <span className="text-sm font-medium text-white">
-                    {t.author_name.charAt(0).toUpperCase()}
-                  </span>
-                </div>
-                <div>
-                  <p className="text-sm text-white font-medium">{t.author_name}</p>
-                  <p className="text-xs text-brand-secondary">{t.author_title}, {t.company}</p>
-                </div>
-              </div>
-            </div>
+            <TestimonialCard key={t.id} t={t} />
+          ))}
+        </MobileCarousel>
+
+        {/* Desktop grid */}
+        <div className="hidden lg:grid lg:grid-cols-3 gap-4">
+          {testimonials.map((t) => (
+            <TestimonialCard key={t.id} t={t} />
           ))}
         </div>
       </div>

@@ -8,6 +8,7 @@ import {
   BarChart3, Mic, Workflow, Brain, type LucideIcon
 } from 'lucide-react';
 import Link from 'next/link';
+import BackendActionPanel from '@/components/playground/BackendActionPanel';
 
 type PublicAgent = {
   id: string;
@@ -423,15 +424,21 @@ export default function PlaygroundContent() {
                 </div>
               </div>
 
-              {/* Side panel — desktop */}
+              {/* Side panel — desktop: backend action feed */}
               <div className="hidden xl:block xl:col-span-1 space-y-4">
+                <BackendActionPanel
+                  agentSlug={activeAgent?.slug ?? ''}
+                  messageCount={messages.filter((m) => m.role === 'user').length}
+                  color={activeColor}
+                />
+
                 <div className="surface-abyss rounded-2xl p-5 border border-brand-inkline space-y-3">
                   <p className="font-tight font-medium text-white text-sm flex items-center gap-2">
                     <MessageSquare size={14} style={{ color: activeColor.dot }} />
                     About this agent
                   </p>
                   <p className="text-sm text-brand-secondary leading-relaxed font-light">{activeAgent?.description}</p>
-                  <div className="pt-2">
+                  <div className="pt-2 flex items-center gap-2">
                     <span className="text-xs font-medium" style={{ color: activeColor.text }}>{activeAgent?.category}</span>
                   </div>
                 </div>
