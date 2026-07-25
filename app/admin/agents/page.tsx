@@ -308,7 +308,7 @@ export default function AdminAgentsPage() {
             )}
 
             <div className="flex items-center gap-3">
-              <button onClick={handleSave} disabled={saving || !form.name} className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-white text-sm font-semibold shadow-glow-sm hover:shadow-glow transition-all disabled:opacity-50">
+              <button onClick={handleSave} disabled={saving || !form.name} className="flex items-center gap-2 px-5 py-2.5 rounded-xl accent-cta text-white text-sm font-semibold transition-all disabled:opacity-50">
                 {saving ? <Loader2 size={15} className="animate-spin" /> : <Save size={15} />}
                 {editing === 'new' ? 'Create Agent' : 'Save Changes'}
               </button>
@@ -386,7 +386,7 @@ export default function AdminAgentsPage() {
           <h1 className="font-tight font-bold text-2xl text-white">AI Agents</h1>
           <p className="text-sm text-brand-secondary mt-0.5">Manage the agents shown in your public playground</p>
         </div>
-        <button onClick={() => openEdit('new')} className="flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-white text-sm font-semibold shadow-glow-sm hover:shadow-glow transition-all">
+        <button onClick={() => openEdit('new')} className="flex items-center gap-2 px-4 py-2 rounded-xl accent-cta text-white text-sm font-semibold transition-all">
           <Plus size={15} /> New Agent
         </button>
       </div>

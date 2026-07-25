@@ -1,23 +1,25 @@
 import Link from 'next/link';
-import { Zap, ArrowLeft, Home, Search } from 'lucide-react';
+import { Zap, Home, Search } from 'lucide-react';
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen bg-brand-bg flex items-center justify-center relative overflow-hidden">
-      <div className="absolute inset-0 grid-bg opacity-20" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] glow-primary opacity-15" />
+    <div className="min-h-screen surface-void flex items-center justify-center relative overflow-hidden">
+      <div className="absolute inset-0">
+        <div className="aurora-orb w-[600px] h-[500px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 aurora-purple opacity-40" />
+        <div className="absolute inset-0 grid-bg opacity-20" />
+      </div>
 
       <div className="relative z-10 max-w-lg mx-auto px-6 text-center space-y-8">
         <div className="flex justify-center">
-          <div className="w-16 h-16 rounded-2xl bg-primary-gradient flex items-center justify-center shadow-glow">
+          <div className="w-16 h-16 rounded-2xl bg-accent-gradient flex items-center justify-center shadow-float">
             <Zap size={32} className="text-white fill-white" />
           </div>
         </div>
 
         <div className="space-y-3">
           <div className="font-mono text-8xl font-bold text-white/10 select-none leading-none">404</div>
-          <h1 className="font-tight font-extrabold text-3xl text-white -mt-4">Page Not Found</h1>
-          <p className="text-brand-secondary leading-relaxed">
+          <h1 className="font-tight font-semibold text-3xl text-white tracking-[-0.025em] -mt-4">Page Not Found</h1>
+          <p className="text-brand-secondary leading-relaxed font-light">
             Looks like this page went offline. The URL may have changed or the page no longer exists.
           </p>
         </div>
@@ -25,24 +27,24 @@ export default function NotFound() {
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link
             href="/"
-            className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-primary-gradient text-white font-semibold shadow-glow-sm hover:shadow-glow transition-all duration-200 hover:scale-105 active:scale-100"
+            className="pill-cta flex items-center justify-center gap-2"
           >
             <Home size={16} />
             Go Home
           </Link>
           <Link
             href="/contact"
-            className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl border border-white/10 text-brand-secondary hover:text-white hover:border-white/20 hover:bg-white/5 transition-all duration-200"
+            className="ghost-btn flex items-center justify-center gap-2"
           >
             <Search size={16} />
             Contact Support
           </Link>
         </div>
 
-        <div className="pt-4 border-t border-white/8">
-          <p className="text-sm text-brand-secondary/60">
+        <div className="pt-4 border-t border-brand-edge">
+          <p className="text-sm text-brand-slate font-light">
             Need help?{' '}
-            <a href="mailto:hello@agenticpoint.com" className="text-primary hover:text-primary/80 transition-colors">
+            <a href="mailto:hello@agenticpoint.com" className="text-brand-primary hover:text-white transition-colors">
               hello@agenticpoint.com
             </a>
           </p>

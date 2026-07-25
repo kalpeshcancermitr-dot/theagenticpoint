@@ -1,90 +1,66 @@
+import { Compass, PencilRuler, Rocket } from 'lucide-react';
+
 const steps = [
   {
-    number: '01',
-    title: 'Discovery',
-    description: 'We map your current workflows, identify automation opportunities, and define success metrics with your team.',
-    detail: '30-min strategy call',
+    icon: Compass,
+    title: 'Discover & Design',
+    description: 'We map your workflows, identify automation opportunities, and design a custom AI system architecture tailored to your business goals.',
+    phase: '01',
   },
   {
-    number: '02',
-    title: 'Workflow Design',
-    description: 'Our AI engineers design the architecture — data flows, integrations, AI models, and business logic.',
-    detail: 'Visual workflow blueprint',
+    icon: PencilRuler,
+    title: 'Build & Train',
+    description: 'Our team builds and trains your AI agents on your business data, integrating with your existing tools and systems for seamless operation.',
+    phase: '02',
   },
   {
-    number: '03',
-    title: 'Prototype',
-    description: 'We build a working prototype in 5-7 days so you can see the system in action before full development.',
-    detail: 'Functional demo delivered',
-  },
-  {
-    number: '04',
-    title: 'Testing & Refinement',
-    description: 'Rigorous testing with real data. We fine-tune responses, edge cases, and integration reliability.',
-    detail: 'Quality assurance phase',
-  },
-  {
-    number: '05',
-    title: 'Deployment',
-    description: 'Production deployment with monitoring, error handling, and performance tracking from day one.',
-    detail: 'Go live in 2-4 weeks',
-  },
-  {
-    number: '06',
-    title: 'Ongoing Support',
-    description: 'Continuous optimization, model updates, and feature additions as your business scales.',
-    detail: 'Dedicated support channel',
+    icon: Rocket,
+    title: 'Deploy & Scale',
+    description: 'We launch your AI systems into production with monitoring, optimization, and ongoing support to ensure continuous improvement.',
+    phase: '03',
   },
 ];
 
 export default function HowItWorks() {
   return (
-    <section className="section-pad bg-brand-bg">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="max-w-2xl mx-auto text-center mb-16 space-y-4">
-          <div className="badge-primary inline-flex">Our Process</div>
-          <h2 className="font-tight font-bold text-4xl lg:text-5xl text-white">
-            From Idea to{' '}
-            <span className="gradient-text">Production</span>
-            {' '}in Weeks
+    <section className="section-pad surface-abyss">
+      <div className="max-w-page mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-2xl mx-auto text-center mb-14 space-y-4">
+          <div className="eyebrow">How It Works</div>
+          <h2 className="font-tight font-semibold text-3xl sm:text-4xl lg:text-5xl text-white tracking-[-0.025em]">
+            From idea to{' '}
+            <span className="gradient-text">production</span>
+            {' '}in weeks
           </h2>
-          <p className="text-brand-secondary text-lg">
-            A structured, transparent process from discovery to deployment — designed to minimize risk and maximize impact.
+          <p className="text-brand-secondary text-base lg:text-lg font-light max-w-xl mx-auto">
+            A proven three-phase process that takes you from manual operations to AI-powered automation — fast.
           </p>
         </div>
 
-        {/* Steps grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {steps.map((step, i) => (
-            <div
-              key={step.number}
-              className="group relative p-6 rounded-2xl border border-white/8 bg-brand-card/40 card-hover"
-            >
-              {/* Step number */}
-              <div className="font-mono text-5xl font-bold text-white/5 absolute top-4 right-5 select-none group-hover:text-primary/10 transition-colors duration-300">
-                {step.number}
-              </div>
-
-              {/* Step indicator */}
-              <div className="relative flex items-center gap-3 mb-4">
-                <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
-                  <span className="font-mono text-xs font-semibold text-primary">{step.number}</span>
+        <div className="grid md:grid-cols-3 gap-6">
+          {steps.map((step, i) => {
+            const Icon = step.icon;
+            return (
+              <div
+                key={step.title}
+                className="relative card-elevated card-hover space-y-5"
+              >
+                <div className="flex items-start justify-between">
+                  <div className="w-11 h-11 rounded-xl surface-cobalt border border-brand-hairline flex items-center justify-center">
+                    <Icon size={20} className="text-brand-primary" />
+                  </div>
+                  <span className="font-mono text-xs text-brand-slate">{step.phase}</span>
+                </div>
+                <div className="space-y-2">
+                  <h3 className="font-tight font-medium text-lg text-white">{step.title}</h3>
+                  <p className="text-sm text-brand-secondary leading-relaxed font-light">{step.description}</p>
                 </div>
                 {i < steps.length - 1 && (
-                  <div className="h-px flex-1 bg-gradient-to-r from-primary/20 to-transparent hidden lg:block" />
+                  <div className="hidden md:block absolute top-1/2 -right-3 w-6 h-px bg-brand-hairline" />
                 )}
               </div>
-
-              <h3 className="font-tight font-bold text-white text-xl mb-2">{step.title}</h3>
-              <p className="text-brand-secondary text-sm leading-relaxed mb-4">{step.description}</p>
-
-              <div className="flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-brand-success" />
-                <span className="text-xs text-brand-success font-medium">{step.detail}</span>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

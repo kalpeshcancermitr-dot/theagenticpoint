@@ -34,14 +34,14 @@ function TestimonialForm({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-      <div className="glass-strong rounded-2xl border border-white/15 w-full max-w-lg shadow-card overflow-y-auto max-h-[90vh]">
-        <div className="flex items-center justify-between px-6 py-4 border-b border-white/8 sticky top-0 bg-brand-surface z-10">
-          <h2 className="font-tight font-bold text-white">{initial.id ? 'Edit Testimonial' : 'New Testimonial'}</h2>
+      <div className="glass-strong rounded-2xl border border-brand-hairline w-full max-w-lg shadow-card overflow-y-auto max-h-[90vh]">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-brand-edge sticky top-0 surface-abyss z-10">
+          <h2 className="font-tight font-semibold text-white">{initial.id ? 'Edit Testimonial' : 'New Testimonial'}</h2>
           <div className="flex items-center gap-2">
             <button
               onClick={() => onSave(form)}
               disabled={saving || !form.client_name || !form.content}
-              className="flex items-center gap-2 px-5 py-2 rounded-xl bg-primary-gradient text-white text-sm font-semibold hover:scale-105 transition-all disabled:opacity-50"
+              className="flex items-center gap-2 px-5 py-2 rounded-xl accent-cta text-white text-sm font-semibold hover:scale-105 transition-all disabled:opacity-50"
             >
               {saving && <Loader2 size={13} className="animate-spin" />}
               {initial.id ? 'Save Changes' : 'Create'}
@@ -60,7 +60,7 @@ function TestimonialForm({
                 value={form.client_name ?? ''}
                 onChange={(e) => set('client_name', e.target.value)}
                 placeholder="Jane Smith"
-                className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-primary/50"
+                className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-brand-edge text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-brand-primary"
               />
             </div>
             <div className="space-y-1.5">
@@ -69,7 +69,7 @@ function TestimonialForm({
                 value={form.client_title ?? ''}
                 onChange={(e) => set('client_title', e.target.value)}
                 placeholder="CEO, Acme Corp"
-                className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-primary/50"
+                className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-brand-edge text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-brand-primary"
               />
             </div>
           </div>
@@ -81,7 +81,7 @@ function TestimonialForm({
               onChange={(e) => set('content', e.target.value)}
               rows={4}
               placeholder="What the client said..."
-              className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-primary/50 resize-none"
+              className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-brand-edge text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-brand-primary resize-none"
             />
           </div>
 
@@ -91,7 +91,7 @@ function TestimonialForm({
               <select
                 value={form.rating ?? 5}
                 onChange={(e) => set('rating', parseInt(e.target.value))}
-                className="w-full px-4 py-2.5 rounded-xl bg-brand-card border border-white/10 text-white text-sm focus:outline-none focus:border-primary/50"
+                className="w-full px-4 py-2.5 rounded-xl surface-deep-sea border border-brand-edge text-white text-sm focus:outline-none focus:border-brand-primary"
               >
                 {[5, 4, 3, 2, 1].map((r) => (
                   <option key={r} value={r}>{r} star{r !== 1 ? 's' : ''}</option>
@@ -103,7 +103,7 @@ function TestimonialForm({
               <select
                 value={form.is_published ? 'published' : 'draft'}
                 onChange={(e) => set('is_published', e.target.value === 'published')}
-                className="w-full px-4 py-2.5 rounded-xl bg-brand-card border border-white/10 text-white text-sm focus:outline-none focus:border-primary/50"
+                className="w-full px-4 py-2.5 rounded-xl surface-deep-sea border border-brand-edge text-white text-sm focus:outline-none focus:border-brand-primary"
               >
                 <option value="draft">Draft (Hidden)</option>
                 <option value="published">Published</option>
@@ -184,20 +184,20 @@ export default function TestimonialsAdminPage() {
     <div className="p-6 lg:p-8 space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="font-tight font-bold text-2xl text-white">Testimonials</h1>
+          <h1 className="font-tight font-semibold text-2xl text-white">Testimonials</h1>
           <p className="text-sm text-brand-secondary mt-0.5">
             {testimonials.length} total · {published} published
           </p>
         </div>
         <button
           onClick={() => setEditTarget({})}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary-gradient text-white text-sm font-semibold shadow-glow-sm hover:shadow-glow transition-all hover:scale-105"
+          className="flex items-center gap-2 px-4 py-2.5 rounded-xl accent-cta text-white text-sm font-semibold transition-all hover:scale-105"
         >
           <Plus size={15} /> New Testimonial
         </button>
       </div>
 
-      <div className="rounded-2xl border border-white/8 bg-brand-card/30 overflow-hidden">
+      <div className="rounded-2xl border border-brand-edge surface-deep-sea/30 overflow-hidden">
         {loading ? (
           <div className="flex items-center justify-center py-16 gap-2 text-brand-secondary text-sm">
             <RefreshCw size={15} className="animate-spin" /> Loading...
@@ -206,7 +206,7 @@ export default function TestimonialsAdminPage() {
           <div className="text-center py-16">
             <MessageSquare size={36} className="text-brand-secondary/20 mx-auto mb-3" />
             <p className="text-brand-secondary font-medium">No testimonials yet</p>
-            <button onClick={() => setEditTarget({})} className="mt-3 text-sm text-primary hover:text-primary/80">
+            <button onClick={() => setEditTarget({})} className="mt-3 text-sm text-brand-primary hover:text-brand-primary/80">
               Add first testimonial
             </button>
           </div>
@@ -231,7 +231,7 @@ export default function TestimonialsAdminPage() {
                       className={`px-2 py-0.5 rounded-full text-xs font-medium border ${
                         t.is_published
                           ? 'text-brand-success bg-brand-success/10 border-brand-success/20'
-                          : 'text-brand-secondary bg-white/5 border-white/10'
+                          : 'text-brand-secondary bg-white/5 border-brand-edge'
                       }`}
                     >
                       {t.is_published ? 'Published' : 'Draft'}
@@ -288,8 +288,8 @@ export default function TestimonialsAdminPage() {
 
       {deleteId && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-          <div className="glass-strong rounded-2xl border border-white/15 p-7 max-w-sm w-full shadow-card">
-            <h3 className="font-tight font-bold text-white mb-2">Delete Testimonial?</h3>
+          <div className="glass-strong rounded-2xl border border-brand-hairline p-7 max-w-sm w-full shadow-card">
+            <h3 className="font-tight font-semibold text-white mb-2">Delete Testimonial?</h3>
             <p className="text-sm text-brand-secondary mb-5">This action cannot be undone.</p>
             <div className="flex gap-3">
               <button
@@ -300,7 +300,7 @@ export default function TestimonialsAdminPage() {
               </button>
               <button
                 onClick={() => setDeleteId(null)}
-                className="flex-1 py-2.5 rounded-xl border border-white/10 text-brand-secondary text-sm font-semibold hover:text-white"
+                className="flex-1 py-2.5 rounded-xl border border-brand-edge text-brand-secondary text-sm font-semibold hover:text-white"
               >
                 Cancel
               </button>

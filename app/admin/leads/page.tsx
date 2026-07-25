@@ -16,9 +16,9 @@ type Lead = {
 };
 
 const statusConfig = {
-  new: { label: 'New', color: 'text-primary bg-primary/10 border-primary/20' },
+  new: { label: 'New', color: 'text-brand-primary bg-brand-primary/10 border-brand-primary/30' },
   reviewed: { label: 'Reviewed', color: 'text-brand-success bg-brand-success/10 border-brand-success/20' },
-  archived: { label: 'Archived', color: 'text-brand-secondary bg-white/5 border-white/10' },
+  archived: { label: 'Archived', color: 'text-brand-secondary bg-white/5 border-brand-edge' },
 };
 
 function timeAgo(dateStr: string) {
@@ -36,13 +36,13 @@ function LeadDetail({ lead, onClose, onStatusChange }: { lead: Lead; onClose: ()
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm" onClick={onClose}>
       <div
-        className="w-full max-w-lg glass-strong rounded-2xl border border-white/15 shadow-card overflow-hidden"
+        className="w-full max-w-lg glass-strong rounded-2xl border border-brand-hairline shadow-card overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-white/8">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-brand-edge">
           <div>
-            <h2 className="font-tight font-bold text-white">{lead.name}</h2>
+            <h2 className="font-tight font-semibold text-white">{lead.name}</h2>
             <p className="text-sm text-brand-secondary">{lead.email}</p>
           </div>
           <button onClick={onClose} className="p-1.5 rounded-lg text-brand-secondary hover:text-white">
@@ -72,7 +72,7 @@ function LeadDetail({ lead, onClose, onStatusChange }: { lead: Lead; onClose: ()
               <div className="flex items-center gap-1.5 text-xs text-brand-secondary/60 uppercase tracking-wider">
                 <MessageSquare size={11} /> Message
               </div>
-              <div className="p-3.5 rounded-xl bg-white/4 border border-white/8 text-sm text-brand-secondary leading-relaxed">
+              <div className="p-3.5 rounded-xl bg-white/4 border border-brand-edge text-sm text-brand-secondary leading-relaxed">
                 {lead.message}
               </div>
             </div>
@@ -90,7 +90,7 @@ function LeadDetail({ lead, onClose, onStatusChange }: { lead: Lead; onClose: ()
         <div className="px-6 pb-5 flex flex-wrap gap-2">
           <a
             href={`mailto:${lead.email}`}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary text-white text-sm font-medium hover:bg-primary/80 transition-colors"
+            className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-brand-primary text-white text-sm font-medium hover:bg-brand-primary/80 transition-colors"
           >
             <Mail size={13} /> Reply via Email
           </a>
@@ -105,7 +105,7 @@ function LeadDetail({ lead, onClose, onStatusChange }: { lead: Lead; onClose: ()
           {(lead.status ?? 'new') !== 'archived' && (
             <button
               onClick={() => onStatusChange(lead.id, 'archived')}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-brand-secondary text-sm font-medium hover:text-white transition-colors"
+              className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white/5 border border-brand-edge text-brand-secondary text-sm font-medium hover:text-white transition-colors"
             >
               <Archive size={13} /> Archive
             </button>
@@ -168,12 +168,12 @@ export default function LeadsPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="font-tight font-bold text-2xl text-white">Leads</h1>
+          <h1 className="font-tight font-semibold text-2xl text-white">Leads</h1>
           <p className="text-sm text-brand-secondary mt-0.5">{counts.new} unreviewed leads</p>
         </div>
         <button
           onClick={fetchLeads}
-          className="flex items-center gap-2 px-4 py-2 rounded-xl border border-white/10 text-brand-secondary hover:text-white text-sm transition-all"
+          className="flex items-center gap-2 px-4 py-2 rounded-xl border border-brand-edge text-brand-secondary hover:text-white text-sm transition-all"
         >
           <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
           Refresh
@@ -189,16 +189,16 @@ export default function LeadsPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search leads..."
-            className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-primary/50 transition-colors"
+            className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-white/5 border border-brand-edge text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-brand-primary transition-colors"
           />
         </div>
-        <div className="flex gap-1 p-1 rounded-xl bg-white/5 border border-white/8">
+        <div className="flex gap-1 p-1 rounded-xl bg-white/5 border border-brand-edge">
           {(['all', 'new', 'reviewed', 'archived'] as const).map((s) => (
             <button
               key={s}
               onClick={() => setStatusFilter(s)}
               className={`px-3.5 py-1.5 rounded-lg text-xs font-medium capitalize transition-all ${
-                statusFilter === s ? 'bg-primary text-white' : 'text-brand-secondary hover:text-white'
+                statusFilter === s ? 'bg-brand-primary text-white' : 'text-brand-secondary hover:text-white'
               }`}
             >
               {s} ({counts[s]})
@@ -208,7 +208,7 @@ export default function LeadsPage() {
       </div>
 
       {/* Table */}
-      <div className="rounded-2xl border border-white/8 bg-brand-card/30 overflow-hidden">
+      <div className="rounded-2xl border border-brand-edge surface-deep-sea/30 overflow-hidden">
         {loading ? (
           <div className="flex items-center justify-center py-16">
             <div className="flex items-center gap-2 text-brand-secondary text-sm">
@@ -228,7 +228,7 @@ export default function LeadsPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-white/8">
+                <tr className="border-b border-brand-edge">
                   {['Name', 'Email', 'Company', 'Service', 'Status', 'Time', ''].map((h) => (
                     <th key={h} className="text-left px-5 py-3 text-xs font-medium text-brand-secondary/70 uppercase tracking-wider">
                       {h}
@@ -242,7 +242,7 @@ export default function LeadsPage() {
                   return (
                     <tr
                       key={lead.id}
-                      className={`border-b border-white/5 hover:bg-white/3 transition-colors cursor-pointer ${i === filtered.length - 1 ? 'border-b-0' : ''}`}
+                      className={`border-b border-brand-inkline hover:bg-white/3 transition-colors cursor-pointer ${i === filtered.length - 1 ? 'border-b-0' : ''}`}
                       onClick={() => setSelectedLead(lead)}
                     >
                       <td className="px-5 py-3.5 font-medium text-white">{lead.name}</td>
@@ -258,7 +258,7 @@ export default function LeadsPage() {
                       <td className="px-5 py-3.5">
                         <button
                           onClick={(e) => { e.stopPropagation(); setSelectedLead(lead); }}
-                          className="p-1.5 rounded-lg text-brand-secondary/50 hover:text-white hover:bg-white/8 transition-all"
+                          className="p-1.5 rounded-lg text-brand-secondary/50 hover:text-white hover:bg-brand-edge transition-all"
                         >
                           <Eye size={14} />
                         </button>

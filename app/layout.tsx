@@ -50,7 +50,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="dark scroll-smooth">
-      <body className="font-sans bg-brand-bg text-white antialiased">
+      <body className="font-sans bg-brand-bg text-brand-text antialiased">
         <Navbar />
         <main>{children}</main>
         <Footer />

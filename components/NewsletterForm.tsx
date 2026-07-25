@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Loader2 } from 'lucide-react';
+import { Loader2, CheckCircle2 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 
 export default function NewsletterForm() {
@@ -35,7 +35,8 @@ export default function NewsletterForm() {
 
   if (success) {
     return (
-      <div className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-brand-success/10 border border-brand-success/20 text-brand-success text-sm font-medium max-w-md mx-auto">
+      <div className="flex items-center justify-center gap-2 px-6 py-3 rounded-full text-brand-success text-sm font-medium max-w-md mx-auto" style={{ backgroundColor: 'rgba(59,220,140,0.10)', border: '1px solid rgba(59,220,140,0.25)' }}>
+        <CheckCircle2 size={16} />
         You&apos;re subscribed! Expect your first issue soon.
       </div>
     );
@@ -50,19 +51,19 @@ export default function NewsletterForm() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="your@email.com"
-          className="flex-1 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-brand-secondary/50 text-sm focus:outline-none focus:border-primary/50 transition-colors"
+          className="input-base flex-1"
         />
         <button
           type="submit"
           disabled={loading}
-          className="px-5 py-2.5 rounded-xl bg-primary-gradient text-white font-semibold text-sm shadow-glow-sm hover:shadow-glow transition-all hover:scale-105 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center gap-2"
+          className="pill-cta flex items-center gap-2 whitespace-nowrap disabled:opacity-70 disabled:cursor-not-allowed"
         >
           {loading ? <Loader2 size={14} className="animate-spin" /> : null}
           Subscribe
         </button>
       </div>
       {error && (
-        <p className="text-sm text-center text-brand-secondary">{error}</p>
+        <p className="text-sm text-center text-brand-secondary font-light">{error}</p>
       )}
     </form>
   );

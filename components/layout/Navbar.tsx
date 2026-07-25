@@ -35,19 +35,17 @@ export default function Navbar() {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled
-            ? 'glass-strong border-b border-white/10 shadow-card'
-            : 'bg-transparent'
+          isScrolled ? 'glass-strong' : 'bg-transparent'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 lg:h-20">
+        <div className="max-w-page mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-14 lg:h-16">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2.5 group">
-              <div className="w-8 h-8 rounded-lg bg-primary-gradient flex items-center justify-center shadow-glow-sm group-hover:shadow-glow transition-shadow duration-300">
-                <Zap size={16} className="text-white fill-white" />
+            <Link href="/" className="flex items-center gap-2 group">
+              <div className="w-7 h-7 rounded-lg bg-accent-gradient flex items-center justify-center transition-transform group-hover:scale-110">
+                <Zap size={14} className="text-white fill-white" />
               </div>
-              <span className="font-tight font-bold text-xl text-white tracking-tight">
+              <span className="font-tight font-semibold text-lg text-white tracking-tight">
                 Agentic<span className="gradient-text">Point</span>
               </span>
             </Link>
@@ -58,10 +56,10 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                  className={`px-4 py-2 rounded-full text-sm font-normal transition-colors duration-200 ${
                     pathname === link.href
-                      ? 'text-white bg-white/10'
-                      : 'text-brand-secondary hover:text-white hover:bg-white/6'
+                      ? 'text-white'
+                      : 'text-brand-secondary hover:text-white'
                   }`}
                 >
                   {link.label}
@@ -73,15 +71,15 @@ export default function Navbar() {
             <div className="hidden lg:flex items-center gap-3">
               <Link
                 href="/contact"
-                className="pill-cta px-5 py-2.5 text-sm"
+                className="pill-cta text-sm"
               >
-                Book Discovery Call
+                Let&apos;s chat
               </Link>
             </div>
 
             {/* Mobile menu button */}
             <button
-              className="lg:hidden p-2 rounded-lg text-brand-secondary hover:text-white hover:bg-white/8 transition-colors"
+              className="lg:hidden p-2 rounded-lg text-brand-secondary hover:text-white transition-colors"
               onClick={() => setIsMobileOpen(!isMobileOpen)}
               aria-label="Toggle menu"
             >
@@ -98,20 +96,20 @@ export default function Navbar() {
         }`}
       >
         <div
-          className="absolute inset-0 bg-brand-bg/80 backdrop-blur-sm"
+          className="absolute inset-0 bg-brand-bg/90 backdrop-blur-sm"
           onClick={() => setIsMobileOpen(false)}
         />
         <div
-          className={`absolute top-0 right-0 bottom-0 w-72 glass-strong border-l border-white/10 flex flex-col transition-transform duration-300 ${
+          className={`absolute top-0 right-0 bottom-0 w-72 glass-strong flex flex-col transition-transform duration-300 ${
             isMobileOpen ? 'translate-x-0' : 'translate-x-full'
           }`}
         >
-          <div className="flex items-center justify-between p-5 border-b border-white/10">
+          <div className="flex items-center justify-between p-5 border-b border-brand-edge">
             <Link href="/" className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-lg bg-primary-gradient flex items-center justify-center">
+              <div className="w-7 h-7 rounded-lg bg-accent-gradient flex items-center justify-center">
                 <Zap size={14} className="text-white fill-white" />
               </div>
-              <span className="font-tight font-bold text-white">AgenticPoint</span>
+              <span className="font-tight font-semibold text-white">AgenticPoint</span>
             </Link>
             <button
               onClick={() => setIsMobileOpen(false)}
@@ -126,10 +124,10 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
+                className={`flex items-center px-4 py-3 rounded-xl text-sm font-normal transition-colors ${
                   pathname === link.href
-                    ? 'text-white bg-white/10 border border-white/10'
-                    : 'text-brand-secondary hover:text-white hover:bg-white/6'
+                    ? 'text-white bg-brand-highlight/50 border border-brand-hairline'
+                    : 'text-brand-secondary hover:text-white hover:bg-white/4'
                 }`}
               >
                 {link.label}
@@ -137,12 +135,12 @@ export default function Navbar() {
             ))}
           </nav>
 
-          <div className="p-5 border-t border-white/10">
+          <div className="p-5 border-t border-brand-edge">
             <Link
               href="/contact"
-              className="pill-cta block w-full px-5 py-3 text-sm text-center"
+              className="pill-cta block w-full text-center"
             >
-              Book Discovery Call
+              Let&apos;s chat
             </Link>
           </div>
         </div>

@@ -43,14 +43,14 @@ function StatCard({
   return (
     <Link
       href={href}
-      className="group p-5 rounded-2xl border border-white/8 bg-brand-card/50 card-hover flex items-start gap-4"
+      className="group p-5 rounded-2xl border border-brand-edge surface-deep-sea/50 card-hover flex items-start gap-4"
     >
       <div className={`w-10 h-10 rounded-xl flex items-center justify-center bg-white/5 group-hover:scale-110 transition-transform`}>
         <Icon size={18} className={color} />
       </div>
       <div className="flex-1 min-w-0">
         <p className="text-sm text-brand-secondary">{label}</p>
-        <p className={`font-tight font-bold text-2xl text-white mt-0.5`}>{value}</p>
+        <p className={`font-tight font-semibold text-2xl text-white mt-0.5`}>{value}</p>
         {sub && <p className={`text-xs font-medium mt-0.5 ${color}`}>{sub}</p>}
       </div>
       <ArrowRight size={14} className="text-brand-secondary/40 group-hover:text-brand-secondary transition-colors mt-1" />
@@ -70,9 +70,9 @@ function timeAgo(dateStr: string) {
 }
 
 const statusStyles: Record<string, string> = {
-  new: 'bg-primary/10 text-primary border-primary/20',
+  new: 'bg-brand-primary/10 text-brand-primary border-brand-primary/30',
   reviewed: 'bg-brand-success/10 text-brand-success border-brand-success/20',
-  archived: 'bg-white/5 text-brand-secondary border-white/10',
+  archived: 'bg-white/5 text-brand-secondary border-brand-edge',
 };
 
 export default function AdminDashboard() {
@@ -116,14 +116,14 @@ export default function AdminDashboard() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="font-tight font-bold text-2xl text-white">Dashboard</h1>
+          <h1 className="font-tight font-semibold text-2xl text-white">Dashboard</h1>
           <p className="text-sm text-brand-secondary mt-0.5">
             {new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
           </p>
         </div>
         <button
           onClick={fetchData}
-          className="flex items-center gap-2 px-4 py-2 rounded-xl border border-white/10 text-brand-secondary hover:text-white hover:border-white/20 text-sm transition-all"
+          className="flex items-center gap-2 px-4 py-2 rounded-xl border border-brand-edge text-brand-secondary hover:text-white hover:border-brand-edge text-sm transition-all"
         >
           <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
           Refresh
@@ -137,7 +137,7 @@ export default function AdminDashboard() {
           label="Total Leads"
           value={loading ? '—' : stats.leads}
           sub={stats.newLeads > 0 ? `${stats.newLeads} unreviewed` : 'All reviewed'}
-          color="text-primary"
+          color="text-brand-primary"
           href="/admin/leads"
         />
         <StatCard
@@ -167,15 +167,15 @@ export default function AdminDashboard() {
       </div>
 
       {/* Recent leads */}
-      <div className="rounded-2xl border border-white/8 bg-brand-card/30 overflow-hidden">
-        <div className="flex items-center justify-between px-5 py-4 border-b border-white/8">
+      <div className="rounded-2xl border border-brand-edge surface-deep-sea/30 overflow-hidden">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-brand-edge">
           <div className="flex items-center gap-2">
-            <Users size={16} className="text-primary" />
+            <Users size={16} className="text-brand-primary" />
             <h2 className="font-tight font-semibold text-white">Recent Leads</h2>
           </div>
           <Link
             href="/admin/leads"
-            className="text-xs text-primary hover:text-primary/80 flex items-center gap-1 transition-colors"
+            className="text-xs text-brand-primary hover:text-brand-primary/80 flex items-center gap-1 transition-colors"
           >
             View all <ArrowRight size={11} />
           </Link>
@@ -198,7 +198,7 @@ export default function AdminDashboard() {
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-white/8">
+                <tr className="border-b border-brand-edge">
                   <th className="text-left px-5 py-3 text-xs font-medium text-brand-secondary/70 uppercase tracking-wider">Name</th>
                   <th className="text-left px-5 py-3 text-xs font-medium text-brand-secondary/70 uppercase tracking-wider hidden sm:table-cell">Email</th>
                   <th className="text-left px-5 py-3 text-xs font-medium text-brand-secondary/70 uppercase tracking-wider hidden lg:table-cell">Interest</th>
@@ -210,7 +210,7 @@ export default function AdminDashboard() {
                 {recentLeads.map((lead, i) => (
                   <tr
                     key={lead.id}
-                    className={`border-b border-white/5 hover:bg-white/3 transition-colors ${
+                    className={`border-b border-brand-inkline hover:bg-white/3 transition-colors ${
                       i === recentLeads.length - 1 ? 'border-b-0' : ''
                     }`}
                   >
@@ -250,7 +250,7 @@ export default function AdminDashboard() {
           <Link
             key={label}
             href={href}
-            className={`group flex items-center gap-3 p-4 rounded-xl border ${border} ${bg} bg-brand-card/20 hover:scale-[1.02] transition-all`}
+            className={`group flex items-center gap-3 p-4 rounded-xl border ${border} ${bg} surface-deep-sea/20 hover:scale-[1.02] transition-all`}
           >
             <Icon size={18} className={color} />
             <span className="font-medium text-sm text-white">{label}</span>
