@@ -54,14 +54,14 @@ function ProjectForm({
 
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-end bg-black/60 backdrop-blur-sm">
-      <div className="h-full w-full max-w-2xl bg-brand-surface border-l border-white/10 flex flex-col shadow-card overflow-y-auto">
-        <div className="flex items-center justify-between px-6 py-4 border-b border-white/8 sticky top-0 bg-brand-surface z-10">
-          <h2 className="font-tight font-bold text-white">{initial.id ? 'Edit Project' : 'New Project'}</h2>
+      <div className="h-full w-full max-w-2xl surface-abyss border-l border-brand-edge flex flex-col shadow-card overflow-y-auto">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-brand-edge sticky top-0 surface-abyss z-10">
+          <h2 className="font-tight font-semibold text-white">{initial.id ? 'Edit Project' : 'New Project'}</h2>
           <div className="flex items-center gap-2">
             <button
               onClick={handleSave}
               disabled={saving || !form.title}
-              className="flex items-center gap-2 px-5 py-2 rounded-xl bg-primary-gradient text-white text-sm font-semibold hover:scale-105 transition-all disabled:opacity-50"
+              className="flex items-center gap-2 px-5 py-2 rounded-xl accent-cta text-white text-sm font-semibold hover:scale-105 transition-all disabled:opacity-50"
             >
               {saving && <Loader2 size={13} className="animate-spin" />}
               {initial.id ? 'Save Changes' : 'Create Project'}
@@ -79,7 +79,7 @@ function ProjectForm({
               value={form.title ?? ''}
               onChange={(e) => set('title', e.target.value)}
               placeholder="Project title..."
-              className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-primary/50"
+              className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-brand-edge text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-brand-primary"
             />
           </div>
 
@@ -89,7 +89,7 @@ function ProjectForm({
               <input
                 value={form.slug ?? ''}
                 onChange={(e) => set('slug', e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-primary/50 font-mono"
+                className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-brand-edge text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-brand-primary font-mono"
               />
             </div>
             <div className="space-y-1.5">
@@ -97,7 +97,7 @@ function ProjectForm({
               <select
                 value={form.category ?? ''}
                 onChange={(e) => set('category', e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl bg-brand-card border border-white/10 text-white text-sm focus:outline-none focus:border-primary/50"
+                className="w-full px-4 py-2.5 rounded-xl surface-deep-sea border border-brand-edge text-white text-sm focus:outline-none focus:border-brand-primary"
               >
                 <option value="">Select...</option>
                 {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
@@ -112,7 +112,7 @@ function ProjectForm({
                 type="number"
                 value={form.sort_order ?? 0}
                 onChange={(e) => set('sort_order', parseInt(e.target.value) || 0)}
-                className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-primary/50"
+                className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-brand-edge text-white text-sm focus:outline-none focus:border-brand-primary"
               />
             </div>
             <div className="space-y-1.5">
@@ -120,7 +120,7 @@ function ProjectForm({
               <select
                 value={form.is_featured ? 'yes' : 'no'}
                 onChange={(e) => set('is_featured', e.target.value === 'yes')}
-                className="w-full px-4 py-2.5 rounded-xl bg-brand-card border border-white/10 text-white text-sm focus:outline-none focus:border-primary/50"
+                className="w-full px-4 py-2.5 rounded-xl surface-deep-sea border border-brand-edge text-white text-sm focus:outline-none focus:border-brand-primary"
               >
                 <option value="no">Not Featured</option>
                 <option value="yes">Featured on Homepage</option>
@@ -134,7 +134,7 @@ function ProjectForm({
               <select
                 value={form.is_case_study ? 'yes' : 'no'}
                 onChange={(e) => set('is_case_study', e.target.value === 'yes')}
-                className="w-full px-4 py-2.5 rounded-xl bg-brand-card border border-white/10 text-white text-sm focus:outline-none focus:border-primary/50"
+                className="w-full px-4 py-2.5 rounded-xl surface-deep-sea border border-brand-edge text-white text-sm focus:outline-none focus:border-brand-primary"
               >
                 <option value="no">Example Scenario</option>
                 <option value="yes">Verified Case Study</option>
@@ -153,7 +153,7 @@ function ProjectForm({
                 value={(form[key] as string) ?? ''}
                 onChange={(e) => set(key, e.target.value)}
                 rows={3}
-                className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-primary/50 resize-none"
+                className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-brand-edge text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-brand-primary resize-none"
               />
             </div>
           ))}
@@ -164,7 +164,7 @@ function ProjectForm({
               value={techInput}
               onChange={(e) => setTechInput(e.target.value)}
               placeholder="OpenAI GPT-4, n8n, Supabase, WhatsApp API"
-              className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-primary/50"
+              className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-brand-edge text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-brand-primary"
             />
           </div>
         </div>
@@ -180,6 +180,7 @@ export default function PortfolioAdminPage() {
   const [editTarget, setEditTarget] = useState<Partial<Project> | null>(null);
   const [saving, setSaving] = useState(false);
   const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [saveError, setSaveError] = useState('');
 
   const fetchProjects = async () => {
     setLoading(true);
@@ -193,14 +194,20 @@ export default function PortfolioAdminPage() {
   const handleSave = async (form: Partial<Project>) => {
     setSaving(true);
     if (form.id) {
-      const { error } = await supabase.from('portfolio_projects').update(form).eq('id', form.id);
-      if (!error) {
-        setProjects((prev) => prev.map((p) => p.id === form.id ? { ...p, ...form } as Project : p));
+      const { id, ...updateData } = form;
+      const { error } = await supabase.from('portfolio_projects').update(updateData).eq('id', id);
+      if (error) {
+        setSaveError(error.message);
+      } else {
+        setProjects((prev) => prev.map((p) => p.id === id ? { ...p, ...form } as Project : p));
         setEditTarget(null);
       }
     } else {
-      const { data, error } = await supabase.from('portfolio_projects').insert(form).select().single();
-      if (!error && data) {
+      const { id: _, ...insertData } = form;
+      const { data, error } = await supabase.from('portfolio_projects').insert(insertData).select().single();
+      if (error) {
+        setSaveError(error.message);
+      } else if (data) {
         setProjects((prev) => [...prev, data as Project]);
         setEditTarget(null);
       }
@@ -229,12 +236,12 @@ export default function PortfolioAdminPage() {
     <div className="p-6 lg:p-8 space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="font-tight font-bold text-2xl text-white">Portfolio</h1>
+          <h1 className="font-tight font-semibold text-2xl text-white">Portfolio</h1>
           <p className="text-sm text-brand-secondary mt-0.5">{projects.length} projects · {projects.filter((p) => p.is_featured).length} featured</p>
         </div>
         <button
           onClick={() => setEditTarget({})}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary-gradient text-white text-sm font-semibold shadow-glow-sm hover:shadow-glow transition-all hover:scale-105"
+          className="flex items-center gap-2 px-4 py-2.5 rounded-xl accent-cta text-white text-sm font-semibold transition-all hover:scale-105"
         >
           <Plus size={15} /> New Project
         </button>
@@ -246,11 +253,11 @@ export default function PortfolioAdminPage() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search projects..."
-          className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-primary/50"
+          className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-white/5 border border-brand-edge text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-brand-primary"
         />
       </div>
 
-      <div className="rounded-2xl border border-white/8 bg-brand-card/30 overflow-hidden">
+      <div className="rounded-2xl border border-brand-edge surface-deep-sea/30 overflow-hidden">
         {loading ? (
           <div className="flex items-center justify-center py-16 gap-2 text-brand-secondary text-sm">
             <RefreshCw size={15} className="animate-spin" /> Loading...
@@ -259,12 +266,12 @@ export default function PortfolioAdminPage() {
           <div className="text-center py-16">
             <Briefcase size={36} className="text-brand-secondary/20 mx-auto mb-3" />
             <p className="text-brand-secondary font-medium">No projects yet</p>
-            <button onClick={() => setEditTarget({})} className="mt-3 text-sm text-primary hover:text-primary/80">Add first project</button>
+            <button onClick={() => setEditTarget({})} className="mt-3 text-sm text-brand-primary hover:text-brand-primary/80">Add first project</button>
           </div>
         ) : (
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-white/8">
+              <tr className="border-b border-brand-edge">
                 {['#', 'Project', 'Category', 'Tech Stack', 'Featured', ''].map((h) => (
                   <th key={h} className="text-left px-5 py-3 text-xs font-medium text-brand-secondary/70 uppercase tracking-wider">{h}</th>
                 ))}
@@ -279,7 +286,7 @@ export default function PortfolioAdminPage() {
                     {project.outcome && <p className="text-xs text-brand-secondary mt-0.5 line-clamp-1">{project.outcome}</p>}
                   </td>
                   <td className="px-5 py-3.5">
-                    <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 border border-primary/20 text-primary">{project.category}</span>
+                    <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-brand-primary/10 border border-brand-primary/30 text-brand-primary">{project.category}</span>
                   </td>
                   <td className="px-5 py-3.5">
                     <div className="flex flex-wrap gap-1">
@@ -315,16 +322,23 @@ export default function PortfolioAdminPage() {
         )}
       </div>
 
+      {saveError && (
+        <div className="fixed bottom-6 right-6 z-[60] px-4 py-3 rounded-xl bg-red-500/15 border border-red-500/30 text-red-400 text-sm shadow-card max-w-sm">
+          {saveError}
+          <button onClick={() => setSaveError('')} className="ml-3 text-red-400/60 hover:text-red-400">Dismiss</button>
+        </div>
+      )}
+
       {editTarget !== null && <ProjectForm initial={editTarget} onSave={handleSave} onClose={() => setEditTarget(null)} saving={saving} />}
 
       {deleteId && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-          <div className="glass-strong rounded-2xl border border-white/15 p-7 max-w-sm w-full shadow-card">
-            <h3 className="font-tight font-bold text-white mb-2">Delete Project?</h3>
+          <div className="glass-strong rounded-2xl border border-brand-hairline p-7 max-w-sm w-full shadow-card">
+            <h3 className="font-tight font-semibold text-white mb-2">Delete Project?</h3>
             <p className="text-sm text-brand-secondary mb-5">This action cannot be undone.</p>
             <div className="flex gap-3">
               <button onClick={() => handleDelete(deleteId)} className="flex-1 py-2.5 rounded-xl bg-red-500/20 border border-red-500/30 text-red-400 text-sm font-semibold">Delete</button>
-              <button onClick={() => setDeleteId(null)} className="flex-1 py-2.5 rounded-xl border border-white/10 text-brand-secondary text-sm font-semibold hover:text-white">Cancel</button>
+              <button onClick={() => setDeleteId(null)} className="flex-1 py-2.5 rounded-xl border border-brand-edge text-brand-secondary text-sm font-semibold hover:text-white">Cancel</button>
             </div>
           </div>
         </div>

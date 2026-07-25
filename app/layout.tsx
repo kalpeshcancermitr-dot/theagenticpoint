@@ -2,6 +2,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
+import { Toaster } from '@/components/ui/sonner';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://agenticpoint.com'),
@@ -49,10 +50,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="dark scroll-smooth">
-      <body className="font-sans bg-brand-bg text-white antialiased">
+      <body className="font-sans bg-brand-bg text-brand-text antialiased">
         <Navbar />
         <main>{children}</main>
         <Footer />
+        <Toaster position="bottom-right" />
       </body>
     </html>
   );

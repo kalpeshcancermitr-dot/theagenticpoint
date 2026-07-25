@@ -10,12 +10,15 @@ const lastUpdated = 'July 18, 2026';
 
 export default function TermsPage() {
   return (
-    <div className="min-h-screen bg-brand-bg">
+    <div className="min-h-screen surface-void">
       <section className="relative pt-32 pb-12 overflow-hidden">
-        <div className="absolute inset-0 grid-bg opacity-20" />
+        <div className="absolute inset-0">
+          <div className="aurora-orb w-[500px] h-[400px] top-[-20%] left-1/2 -translate-x-1/2 aurora-purple opacity-40" />
+          <div className="absolute inset-0 grid-bg opacity-20" />
+        </div>
         <div className="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="badge-primary inline-flex mb-5">Legal</div>
-          <h1 className="font-tight font-extrabold text-4xl lg:text-5xl text-white tracking-tight mb-4">Terms of Service</h1>
+          <h1 className="font-tight font-semibold text-4xl lg:text-5xl text-white tracking-[-0.03em] mb-4">Terms of Service</h1>
           <p className="text-brand-secondary">Last updated: {lastUpdated}</p>
         </div>
       </section>
@@ -24,7 +27,7 @@ export default function TermsPage() {
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="space-y-10">
 
-            <div className="p-6 rounded-2xl border border-white/8 bg-brand-card/30 text-brand-secondary text-sm leading-relaxed">
+            <div className="p-6 rounded-2xl border border-brand-edge surface-deep-sea text-brand-secondary text-sm leading-relaxed font-light">
               Please read these Terms of Service (&quot;Terms&quot;) carefully before using the AgenticPoint website or engaging with our services. By accessing our website or purchasing our services, you agree to be bound by these Terms.
             </div>
 
@@ -83,19 +86,19 @@ export default function TermsPage() {
               },
             ].map((section) => (
               <div key={section.title} className="space-y-3">
-                <h2 className="font-tight font-bold text-xl text-white">{section.title}</h2>
+                <h2 className="font-tight font-medium text-xl text-white">{section.title}</h2>
                 <p className="text-brand-secondary leading-relaxed text-sm">{section.text}</p>
               </div>
             ))}
 
-            <div className="p-6 rounded-2xl border border-primary/20 bg-primary/5 space-y-2">
-              <p className="font-semibold text-white">AgenticPoint</p>
-              <a href="mailto:hello@agenticpoint.com" className="text-primary hover:text-primary/80 transition-colors text-sm">
+            <div className="p-6 rounded-2xl border border-brand-hairline card-highlight space-y-2">
+              <p className="font-medium text-white">AgenticPoint</p>
+              <a href="mailto:hello@agenticpoint.com" className="text-brand-primary hover:text-white transition-colors text-sm">
                 hello@agenticpoint.com
               </a>
             </div>
 
-            <div className="pt-4 border-t border-white/8">
+            <div className="pt-4 border-t border-brand-edge">
               <Link href="/privacy" className="text-sm text-brand-secondary hover:text-white transition-colors">
                 View our Privacy Policy &rarr;
               </Link>

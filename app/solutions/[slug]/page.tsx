@@ -8,11 +8,7 @@ const solutionData: Record<string, {
   title: string;
   tagline: string;
   description: string;
-  icon: string;
   color: string;
-  accentClass: string;
-  borderClass: string;
-  bgClass: string;
   challenges: { title: string; detail: string }[];
   solutions: { title: string; detail: string }[];
   results: { metric: string; label: string }[];
@@ -23,11 +19,7 @@ const solutionData: Record<string, {
     title: 'Healthcare AI Automation',
     tagline: 'Improve patient outcomes while reducing administrative burden.',
     description: 'Healthcare providers are drowning in administrative tasks — appointment scheduling, patient follow-ups, insurance verification, and documentation. Our AI automation systems handle these workflows 24/7, freeing your clinical staff to focus on patients.',
-    icon: '🏥',
-    color: 'text-rose-400',
-    accentClass: 'text-rose-400',
-    borderClass: 'border-rose-400/20',
-    bgClass: 'bg-rose-400/8',
+    color: '#fb7185',
     challenges: [
       { title: 'High no-show rates', detail: 'Patients forget appointments, costing clinics thousands per month in lost revenue.' },
       { title: 'Staff overwhelmed by admin', detail: 'Clinical and admin staff spend 30-40% of their time on manual follow-ups and scheduling.' },
@@ -46,7 +38,7 @@ const solutionData: Record<string, {
       { metric: '24/7', label: 'Patient communication' },
       { metric: '95%', label: 'Intake accuracy' },
     ],
-    techStack: ['WhatsApp Business API', 'n8n', 'OpenAI', 'Supabase', 'Twilio', 'EHR Integration'],
+    techStack: ['WhatsApp Business API', 'n8n', 'Gemini', 'Supabase', 'Twilio', 'EHR Integration'],
     caseStudy: {
       headline: 'Multi-practice clinic reduced no-shows by 38% in 60 days',
       detail: 'A regional healthcare group with 4 locations deployed our patient follow-up AI across their booking system. Automated reminders via WhatsApp with easy reschedule links cut no-shows from 23% to 14%, recovering over $18,000/month in appointment revenue.',
@@ -56,11 +48,7 @@ const solutionData: Record<string, {
     title: 'Real Estate AI Automation',
     tagline: 'Qualify more leads and close deals faster with AI automation.',
     description: 'Real estate agents and agencies waste hours responding to low-intent inquiries, manually qualifying leads, and following up on cold prospects. Our AI solutions handle lead qualification, property inquiries, and follow-up sequences automatically.',
-    icon: '🏘️',
-    color: 'text-green-400',
-    accentClass: 'text-green-400',
-    borderClass: 'border-green-400/20',
-    bgClass: 'bg-green-400/8',
+    color: '#3bdc8c',
     challenges: [
       { title: 'Slow response to inquiries', detail: 'Leads from portals go cold in minutes. Manual follow-up means missed deals.' },
       { title: 'Manual lead qualification', detail: 'Agents spend time on unqualified inquiries rather than closing ready buyers.' },
@@ -79,7 +67,7 @@ const solutionData: Record<string, {
       { metric: '12-touch', label: 'Automated follow-up' },
       { metric: '60%', label: 'Less admin time' },
     ],
-    techStack: ['WhatsApp Business API', 'n8n', 'OpenAI', 'Calendly', 'CRM Integration', 'Supabase'],
+    techStack: ['WhatsApp Business API', 'n8n', 'Gemini', 'Calendly', 'CRM Integration', 'Supabase'],
     caseStudy: {
       headline: 'Boutique real estate agency tripled qualified viewings',
       detail: 'A 6-agent real estate team deployed our WhatsApp qualification bot on their property portal listings. The bot pre-qualifies buyers and books viewings automatically. Qualified meetings per month grew from 28 to 89, with agents spending 70% less time on initial qualification calls.',
@@ -89,11 +77,7 @@ const solutionData: Record<string, {
     title: 'E-Commerce AI Automation',
     tagline: 'Automate support, recover abandoned carts, and increase customer LTV.',
     description: 'E-commerce businesses face high support ticket volume, cart abandonment, and returns complexity. Our AI automation handles customer support, cart recovery, order tracking, and returns processing — all without increasing headcount.',
-    icon: '🛍️',
-    color: 'text-primary',
-    accentClass: 'text-primary',
-    borderClass: 'border-primary/20',
-    bgClass: 'bg-primary/8',
+    color: '#2862d7',
     challenges: [
       { title: 'High support ticket volume', detail: 'Order questions, delivery inquiries, and product issues overwhelm customer service teams.' },
       { title: 'Cart abandonment', detail: 'On average, 70% of shopping carts are abandoned — most never followed up on.' },
@@ -112,7 +96,7 @@ const solutionData: Record<string, {
       { metric: '60%', label: 'Fewer WISMO tickets' },
       { metric: '4.8★', label: 'Average support rating' },
     ],
-    techStack: ['Shopify / WooCommerce', 'WhatsApp Business API', 'OpenAI', 'n8n', 'Klaviyo', 'Supabase'],
+    techStack: ['Shopify / WooCommerce', 'WhatsApp Business API', 'Gemini', 'n8n', 'Klaviyo', 'Supabase'],
     caseStudy: {
       headline: 'D2C brand resolved 78% of support tickets without human intervention',
       detail: 'A direct-to-consumer fashion brand processing 2,000 monthly orders deployed our support AI across email and WhatsApp. The AI handles order inquiries, exchanges, and returns automatically. Support costs dropped by 55% while CSAT scores increased from 3.6 to 4.8.',
@@ -122,11 +106,7 @@ const solutionData: Record<string, {
     title: 'Recruitment & HR AI Automation',
     tagline: 'Screen more candidates faster without sacrificing quality.',
     description: 'Recruitment teams are bottlenecked at CV screening, bogged down by manual scheduling, and losing top candidates to slow processes. Our AI automation handles screening, communication, and coordination so your recruiters focus on relationships.',
-    icon: '👥',
-    color: 'text-teal-400',
-    accentClass: 'text-teal-400',
-    borderClass: 'border-teal-400/20',
-    bgClass: 'bg-teal-400/8',
+    color: '#2dd4bf',
     challenges: [
       { title: 'CV screening bottleneck', detail: 'Hundreds of applications per role, manually reviewed by recruiters instead of strategic hiring work.' },
       { title: 'Slow candidate communication', detail: 'Candidates wait days for status updates, leading to drop-off and reputational damage.' },
@@ -145,7 +125,7 @@ const solutionData: Record<string, {
       { metric: '3hrs', label: 'Saved per placement' },
       { metric: '92%', label: 'Candidate satisfaction' },
     ],
-    techStack: ['OpenAI', 'n8n', 'ATS Integration', 'WhatsApp Business API', 'Calendly', 'Supabase'],
+    techStack: ['Gemini', 'n8n', 'ATS Integration', 'WhatsApp Business API', 'Calendly', 'Supabase'],
     caseStudy: {
       headline: 'Staffing agency placed candidates 40% faster with AI screening',
       detail: 'A mid-size staffing agency processing 300 applications per week deployed our AI screening system. CVs are scored and ranked automatically. Recruiter time spent on initial screening dropped from 2 hours per role to 20 minutes, with hiring managers reporting better candidate quality.',
@@ -155,11 +135,7 @@ const solutionData: Record<string, {
     title: 'Professional Services AI',
     tagline: 'Win more business with AI-powered proposals and client management.',
     description: 'Law firms, consultancies, agencies, and accountancies spend billable hours on non-billable admin. Our AI automation handles proposals, client onboarding, document processing, and communication workflows so your team bills more and administers less.',
-    icon: '⚖️',
-    color: 'text-accent',
-    accentClass: 'text-accent',
-    borderClass: 'border-accent/20',
-    bgClass: 'bg-accent/8',
+    color: '#625fff',
     challenges: [
       { title: 'Slow proposal creation', detail: 'Proposals take days to craft manually, losing deals to faster competitors.' },
       { title: 'Manual client follow-ups', detail: 'Partners and senior staff chase clients for documents, approvals, and payments.' },
@@ -178,7 +154,7 @@ const solutionData: Record<string, {
       { metric: '20hrs', label: 'Saved per partner/month' },
       { metric: '2x', label: 'Faster client onboarding' },
     ],
-    techStack: ['OpenAI', 'n8n', 'Notion / Coda', 'DocuSign', 'Supabase', 'Zapier'],
+    techStack: ['Gemini', 'n8n', 'Notion / Coda', 'DocuSign', 'Supabase', 'Zapier'],
     caseStudy: {
       headline: 'Management consultancy cut proposal time from 3 days to 10 minutes',
       detail: 'A boutique strategy consultancy deployed our proposal generator trained on 200 past proposals. Consultants now generate tailored first drafts in 10 minutes instead of 3 days. Win rate improved from 28% to 41% as faster turnaround impressed prospects.',
@@ -188,11 +164,7 @@ const solutionData: Record<string, {
     title: 'Finance AI Automation',
     tagline: 'Automate document processing, compliance, and client communication.',
     description: 'Financial services firms face massive document processing burdens, compliance reporting overhead, and complex client communication needs. Our AI systems handle document extraction, KYC flows, reporting automation, and client onboarding at scale.',
-    icon: '💹',
-    color: 'text-yellow-400',
-    accentClass: 'text-yellow-400',
-    borderClass: 'border-yellow-400/20',
-    bgClass: 'bg-yellow-400/8',
+    color: '#facc15',
     challenges: [
       { title: 'Manual document review', detail: 'Analysts spend hours extracting data from invoices, contracts, and financial statements.' },
       { title: 'Compliance reporting overhead', detail: 'Regulatory reports require manual data aggregation from multiple systems.' },
@@ -211,7 +183,7 @@ const solutionData: Record<string, {
       { metric: '5 days', label: 'KYC time (from 3 weeks)' },
       { metric: '$200k', label: 'Annual cost savings' },
     ],
-    techStack: ['OpenAI', 'n8n', 'Supabase', 'Document AI', 'Plaid', 'Zapier'],
+    techStack: ['Claude', 'n8n', 'Supabase', 'Document AI', 'Plaid', 'Zapier'],
     caseStudy: {
       headline: 'Accounting firm eliminated 38 hours/week of manual invoice processing',
       detail: 'A mid-size accounting firm processing 500+ invoices per week deployed our document AI. The system extracts line items, validates totals, matches POs, and routes anomalies for review. Manual processing time dropped from 45 hours/week to 7 hours, with extraction accuracy exceeding 95%.',
@@ -221,11 +193,7 @@ const solutionData: Record<string, {
     title: 'Hospitality AI Automation',
     tagline: 'Deliver 5-star experiences with AI-powered guest communication.',
     description: 'Hotels, restaurants, and hospitality businesses face 24/7 guest communication needs, reservation complexity, and review management challenges. Our AI agents handle guest inquiries, bookings, and feedback loops around the clock.',
-    icon: '🏨',
-    color: 'text-orange-400',
-    accentClass: 'text-orange-400',
-    borderClass: 'border-orange-400/20',
-    bgClass: 'bg-orange-400/8',
+    color: '#fb923c',
     challenges: [
       { title: 'Late-night guest inquiries', detail: 'Guests need answers at 11pm — manual staff coverage is expensive and inconsistent.' },
       { title: 'Manual reservation management', detail: 'Booking amendments, special requests, and availability queries handled by staff.' },
@@ -244,7 +212,7 @@ const solutionData: Record<string, {
       { metric: '40%', label: 'Fewer complaints escalated' },
       { metric: '100%', label: 'Review response rate' },
     ],
-    techStack: ['WhatsApp Business API', 'OpenAI', 'n8n', 'Google Business API', 'Booking.com API', 'Supabase'],
+    techStack: ['WhatsApp Business API', 'Gemini', 'n8n', 'Google Business API', 'Booking.com API', 'Supabase'],
     caseStudy: {
       headline: 'Boutique hotel chain improved review score from 4.1 to 4.8 in 3 months',
       detail: 'A group of 3 boutique hotels deployed our guest communication AI and review response system. Guests get instant responses to inquiries via WhatsApp. Complaints are flagged immediately for manager intervention. Reviews improved from 4.1 to 4.8 across all platforms in 90 days.',
@@ -254,11 +222,7 @@ const solutionData: Record<string, {
     title: 'Education AI Automation',
     tagline: 'Automate student support, admissions, and administrative workflows.',
     description: 'Educational institutions face high-volume admissions inquiries, student support overload, and manual enrollment processes. Our AI automation handles these workflows at scale, improving student experience while reducing staff burden.',
-    icon: '🎓',
-    color: 'text-purple-400',
-    accentClass: 'text-purple-400',
-    borderClass: 'border-purple-400/20',
-    bgClass: 'bg-purple-400/8',
+    color: '#a78bfa',
     challenges: [
       { title: 'High admissions inquiry volume', detail: 'Hundreds of daily questions about programs, requirements, and deadlines overwhelm admissions teams.' },
       { title: 'Student support overload', detail: 'Academic, administrative, and wellbeing queries compete for staff time.' },
@@ -277,7 +241,7 @@ const solutionData: Record<string, {
       { metric: '2x', label: 'Faster enrollment' },
       { metric: '88%', label: 'Student satisfaction' },
     ],
-    techStack: ['OpenAI', 'n8n', 'WhatsApp Business API', 'Supabase', 'CRM Integration', 'Email API'],
+    techStack: ['Gemini', 'n8n', 'WhatsApp Business API', 'Supabase', 'CRM Integration', 'Email API'],
     caseStudy: {
       headline: 'University reduced admissions inquiry workload by 70%',
       detail: 'A private university deploying our admissions AI chatbot trained on their prospectus, fee structure, and FAQs. The AI handles 70% of incoming admissions queries automatically. The admissions team now focuses on high-intent applicants, increasing application completion rates by 25%.',
@@ -301,14 +265,16 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 export default function SolutionDetailPage({ params }: { params: { slug: string } }) {
   const solution = solutionData[params.slug];
   if (!solution) notFound();
+  const c = solution.color;
 
   return (
-    <div className="min-h-screen bg-brand-bg">
+    <div className="min-h-screen surface-void">
       {/* Hero */}
       <section className="relative pt-32 pb-16 overflow-hidden">
-        <div className="absolute inset-0 grid-bg opacity-25" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] glow-primary opacity-20" />
-
+        <div className="absolute inset-0">
+          <div className="aurora-orb w-[500px] h-[400px] top-[-20%] left-1/2 -translate-x-1/2 aurora-purple opacity-40" />
+          <div className="absolute inset-0 grid-bg opacity-20" />
+        </div>
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link
             href="/solutions"
@@ -318,17 +284,14 @@ export default function SolutionDetailPage({ params }: { params: { slug: string 
             All Solutions
           </Link>
 
-          <div className="flex items-start gap-5 mb-6">
-            <span className="text-5xl">{solution.icon}</span>
-            <div>
-              <div className={`text-sm font-semibold ${solution.accentClass} mb-2`}>{solution.tagline}</div>
-              <h1 className="font-tight font-extrabold text-4xl lg:text-5xl text-white tracking-tight">
-                {solution.title}
-              </h1>
-            </div>
+          <div className="mb-6">
+            <div className="text-sm font-medium mb-2" style={{ color: c }}>{solution.tagline}</div>
+            <h1 className="font-tight font-semibold text-4xl lg:text-5xl text-white tracking-[-0.03em]">
+              {solution.title}
+            </h1>
           </div>
 
-          <p className="text-lg text-brand-secondary leading-relaxed max-w-2xl">
+          <p className="text-lg text-brand-secondary leading-relaxed max-w-2xl font-light">
             {solution.description}
           </p>
         </div>
@@ -337,11 +300,14 @@ export default function SolutionDetailPage({ params }: { params: { slug: string 
       {/* Results metrics */}
       <section className="pb-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`grid grid-cols-2 sm:grid-cols-4 gap-4 p-6 rounded-2xl border ${solution.borderClass} ${solution.bgClass}`}>
+          <div
+            className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-6 rounded-2xl border"
+            style={{ backgroundColor: `${c}0d`, borderColor: `${c}33` }}
+          >
             {solution.results.map((result) => (
               <div key={result.label} className="text-center">
-                <div className={`font-tight font-extrabold text-3xl ${solution.accentClass}`}>{result.metric}</div>
-                <div className="text-sm text-brand-secondary mt-1">{result.label}</div>
+                <div className="font-tight font-semibold text-3xl" style={{ color: c }}>{result.metric}</div>
+                <div className="text-sm text-brand-secondary mt-1 font-light">{result.label}</div>
               </div>
             ))}
           </div>
@@ -353,27 +319,31 @@ export default function SolutionDetailPage({ params }: { params: { slug: string 
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-8">
             <div className="space-y-4">
-              <h2 className="font-tight font-bold text-2xl text-white">The Challenges</h2>
+              <h2 className="font-tight font-medium text-2xl text-white">The Challenges</h2>
               <div className="space-y-3">
-                {solution.challenges.map((c) => (
-                  <div key={c.title} className="p-4 rounded-xl border border-white/8 bg-brand-card/30 space-y-1">
-                    <div className="font-semibold text-white text-sm">{c.title}</div>
-                    <div className="text-brand-secondary text-sm leading-relaxed">{c.detail}</div>
+                {solution.challenges.map((ch) => (
+                  <div key={ch.title} className="card-elevated space-y-1">
+                    <div className="font-medium text-white text-sm">{ch.title}</div>
+                    <div className="text-brand-secondary text-sm leading-relaxed font-light">{ch.detail}</div>
                   </div>
                 ))}
               </div>
             </div>
 
             <div className="space-y-4">
-              <h2 className="font-tight font-bold text-2xl text-white">Our Solutions</h2>
+              <h2 className="font-tight font-medium text-2xl text-white">Our Solutions</h2>
               <div className="space-y-3">
                 {solution.solutions.map((s) => (
-                  <div key={s.title} className={`p-4 rounded-xl border ${solution.borderClass} ${solution.bgClass} space-y-1`}>
+                  <div
+                    key={s.title}
+                    className="rounded-xl border p-4 space-y-1"
+                    style={{ backgroundColor: `${c}0d`, borderColor: `${c}33` }}
+                  >
                     <div className="flex items-center gap-2">
-                      <CheckCircle2 size={14} className={solution.accentClass} />
-                      <div className={`font-semibold text-sm ${solution.accentClass}`}>{s.title}</div>
+                      <CheckCircle2 size={14} style={{ color: c }} />
+                      <div className="font-medium text-sm" style={{ color: c }}>{s.title}</div>
                     </div>
-                    <div className="text-brand-secondary text-sm leading-relaxed pl-5">{s.detail}</div>
+                    <div className="text-brand-secondary text-sm leading-relaxed pl-5 font-light">{s.detail}</div>
                   </div>
                 ))}
               </div>
@@ -386,13 +356,13 @@ export default function SolutionDetailPage({ params }: { params: { slug: string 
       {solution.caseStudy && (
         <section className="pb-16">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="p-8 rounded-2xl border border-primary/20 bg-primary/5">
+            <div className="card-highlight p-8">
               <div className="flex items-center gap-2 mb-4">
-                <TrendingUp size={16} className="text-primary" />
-                <span className="text-xs uppercase tracking-widest text-primary font-semibold">Case Study</span>
+                <TrendingUp size={16} style={{ color: c }} />
+                <span className="eyebrow" style={{ color: c }}>Case Study</span>
               </div>
-              <h3 className="font-tight font-bold text-xl text-white mb-3">{solution.caseStudy.headline}</h3>
-              <p className="text-brand-secondary leading-relaxed">{solution.caseStudy.detail}</p>
+              <h3 className="font-tight font-medium text-xl text-white mb-3">{solution.caseStudy.headline}</h3>
+              <p className="text-brand-tertiary leading-relaxed font-light">{solution.caseStudy.detail}</p>
             </div>
           </div>
         </section>
@@ -401,12 +371,13 @@ export default function SolutionDetailPage({ params }: { params: { slug: string 
       {/* Tech stack */}
       <section className="pb-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="font-tight font-bold text-xl text-white mb-4">Technology Stack</h2>
+          <h2 className="font-tight font-medium text-xl text-white mb-4">Technology Stack</h2>
           <div className="flex flex-wrap gap-2">
             {solution.techStack.map((tech) => (
               <span
                 key={tech}
-                className="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 text-sm text-brand-secondary font-mono"
+                className="px-3 py-1.5 rounded-lg border text-sm font-mono font-medium"
+                style={{ color: c, backgroundColor: `${c}1a`, borderColor: `${c}40` }}
               >
                 {tech}
               </span>
@@ -418,28 +389,25 @@ export default function SolutionDetailPage({ params }: { params: { slug: string 
       {/* CTA */}
       <section className="pb-24">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="p-8 rounded-3xl border border-white/10 bg-brand-surface text-center space-y-5">
-            <div className="w-12 h-12 rounded-xl bg-primary-gradient flex items-center justify-center mx-auto shadow-glow-sm">
-              <Zap size={22} className="text-white fill-white" />
+          <div className="card-highlight text-center space-y-5">
+            <div
+              className="w-12 h-12 rounded-xl flex items-center justify-center mx-auto"
+              style={{ backgroundColor: `${c}1a`, border: `1px solid ${c}40` }}
+            >
+              <Zap size={22} style={{ color: c }} />
             </div>
-            <h2 className="font-tight font-bold text-2xl text-white">
+            <h2 className="font-tight font-medium text-2xl text-white">
               Ready to automate your {solution.title.split(' ').slice(0, 2).join(' ')} operations?
             </h2>
-            <p className="text-brand-secondary max-w-md mx-auto">
+            <p className="text-brand-tertiary max-w-md mx-auto font-light">
               Book a free 30-minute strategy session. We&apos;ll map your workflows and show you exactly what&apos;s possible.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-primary-gradient text-white font-semibold shadow-glow hover:shadow-glow-lg transition-all duration-200 hover:scale-105 active:scale-100"
-              >
+              <Link href="/contact" className="pill-cta flex items-center justify-center gap-2">
                 Book Discovery Call
                 <ArrowRight size={15} />
               </Link>
-              <Link
-                href="/solutions"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl border border-white/10 text-brand-secondary hover:text-white hover:border-white/20 transition-all duration-200"
-              >
+              <Link href="/solutions" className="ghost-btn flex items-center justify-center gap-2">
                 View All Solutions
               </Link>
             </div>

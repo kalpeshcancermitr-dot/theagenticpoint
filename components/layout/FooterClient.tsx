@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { Zap, Twitter, Linkedin, Github, Mail, ArrowRight } from 'lucide-react';
+import { Zap, Twitter, Linkedin, Github, Mail } from 'lucide-react';
 
 const footerLinks = {
   Services: [
@@ -57,35 +57,34 @@ export default function FooterClient({ contactEmail, twitterUrl, linkedinUrl, gi
   ].filter((s) => s.href);
 
   return (
-    <footer className="relative border-t border-white/8 bg-brand-surface">
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+    <footer className="relative border-t border-brand-edge surface-abyss">
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-accent/40 to-transparent" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
+      <div className="max-w-page mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-8">
           {/* Brand column */}
           <div className="lg:col-span-2 space-y-6">
             <Link href="/" className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-primary-gradient flex items-center justify-center shadow-glow-sm">
+              <div className="w-9 h-9 rounded-xl bg-accent-gradient flex items-center justify-center">
                 <Zap size={18} className="text-white fill-white" />
               </div>
-              <span className="font-tight font-bold text-2xl text-white tracking-tight">
+              <span className="font-tight font-semibold text-2xl text-white tracking-tight">
                 Agentic<span className="gradient-text">Point</span>
               </span>
             </Link>
 
-            <p className="text-brand-secondary text-sm leading-relaxed max-w-xs">
+            <p className="text-brand-secondary text-sm leading-relaxed max-w-xs font-light">
               An AI Automation Studio building intelligent systems that automate business operations, streamline workflows, and create exceptional customer experiences.
             </p>
 
             <div className="space-y-3">
-              <p className="text-xs uppercase tracking-widest text-brand-secondary font-medium">Get in touch</p>
+              <p className="eyebrow">Get in touch</p>
               <a
                 href={`mailto:${contactEmail}`}
                 className="flex items-center gap-2 text-sm text-brand-secondary hover:text-white transition-colors group"
               >
-                <Mail size={14} className="text-primary" />
+                <Mail size={14} className="text-brand-primary" />
                 <span>{contactEmail}</span>
-                <ArrowRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity -ml-1" />
               </a>
             </div>
 
@@ -98,7 +97,7 @@ export default function FooterClient({ contactEmail, twitterUrl, linkedinUrl, gi
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={label}
-                    className="w-9 h-9 rounded-lg border border-white/10 flex items-center justify-center text-brand-secondary hover:text-white hover:border-white/20 hover:bg-white/6 transition-all duration-200"
+                    className="w-9 h-9 rounded-lg border border-brand-edge surface-deep-sea flex items-center justify-center text-brand-secondary hover:text-white hover:border-brand-hairline transition-all duration-200"
                   >
                     <Icon size={16} />
                   </a>
@@ -111,13 +110,13 @@ export default function FooterClient({ contactEmail, twitterUrl, linkedinUrl, gi
           <div className="lg:col-span-3 grid grid-cols-2 sm:grid-cols-4 gap-8">
             {Object.entries(footerLinks).map(([category, links]) => (
               <div key={category} className="space-y-4">
-                <h3 className="font-tight font-semibold text-sm text-white">{category}</h3>
+                <h3 className="font-tight font-medium text-sm text-white">{category}</h3>
                 <ul className="space-y-2.5">
                   {links.map((link) => (
                     <li key={link.href}>
                       <Link
                         href={link.href}
-                        className="text-sm text-brand-secondary hover:text-white transition-colors duration-200 block"
+                        className="text-sm text-brand-secondary hover:text-white transition-colors duration-200 block font-light"
                       >
                         {link.label}
                       </Link>
@@ -130,13 +129,13 @@ export default function FooterClient({ contactEmail, twitterUrl, linkedinUrl, gi
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-16 pt-8 border-t border-white/8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-brand-secondary">
+        <div className="mt-16 pt-8 border-t border-brand-edge flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-sm text-brand-secondary font-light">
             &copy; {new Date().getFullYear()} AgenticPoint. All rights reserved.
           </p>
-          <div className="flex items-center gap-1">
-            <span className="text-sm text-brand-secondary">Building AI Employees for Modern Businesses</span>
-            <span className="text-primary ml-1">&#9670;</span>
+          <div className="flex items-center gap-1.5">
+            <span className="text-sm text-brand-secondary font-light">Building AI Employees for Modern Businesses</span>
+            <span className="text-brand-primary">&#9670;</span>
           </div>
         </div>
       </div>

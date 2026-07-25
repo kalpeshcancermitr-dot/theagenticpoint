@@ -19,11 +19,11 @@ type Resource = {
 const TYPES = ['template', 'guide', 'tool', 'checklist', 'other'];
 
 const typeColors: Record<string, string> = {
-  template: 'text-primary bg-primary/10 border-primary/20',
+  template: 'text-brand-primary bg-brand-primary/10 border-brand-primary/30',
   guide: 'text-accent bg-accent/10 border-accent/20',
   tool: 'text-brand-success bg-brand-success/10 border-brand-success/20',
   checklist: 'text-yellow-400 bg-yellow-400/10 border-yellow-400/20',
-  other: 'text-brand-secondary bg-white/5 border-white/10',
+  other: 'text-brand-secondary bg-white/5 border-brand-edge',
 };
 
 function ResourceForm({
@@ -57,9 +57,9 @@ function ResourceForm({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-      <div className="w-full max-w-lg glass-strong rounded-2xl border border-white/15 shadow-card overflow-hidden">
-        <div className="flex items-center justify-between px-6 py-4 border-b border-white/8">
-          <h2 className="font-tight font-bold text-white">{initial.id ? 'Edit Resource' : 'Add Resource'}</h2>
+      <div className="w-full max-w-lg glass-strong rounded-2xl border border-brand-hairline shadow-card overflow-hidden">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-brand-edge">
+          <h2 className="font-tight font-semibold text-white">{initial.id ? 'Edit Resource' : 'Add Resource'}</h2>
           <button onClick={onClose} className="p-1.5 rounded-lg text-brand-secondary hover:text-white">
             <X size={18} />
           </button>
@@ -72,7 +72,7 @@ function ResourceForm({
               value={form.title ?? ''}
               onChange={(e) => set('title', e.target.value)}
               placeholder="Resource title..."
-              className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-primary/50"
+              className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-brand-edge text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-brand-primary"
             />
           </div>
 
@@ -82,7 +82,7 @@ function ResourceForm({
               <select
                 value={form.type ?? 'template'}
                 onChange={(e) => set('type', e.target.value as Resource['type'])}
-                className="w-full px-4 py-2.5 rounded-xl bg-brand-card border border-white/10 text-white text-sm focus:outline-none focus:border-primary/50 capitalize"
+                className="w-full px-4 py-2.5 rounded-xl surface-deep-sea border border-brand-edge text-white text-sm focus:outline-none focus:border-brand-primary capitalize"
               >
                 {TYPES.map((t) => <option key={t} value={t} className="capitalize">{t}</option>)}
               </select>
@@ -92,7 +92,7 @@ function ResourceForm({
               <select
                 value={form.is_published ? 'published' : 'draft'}
                 onChange={(e) => set('is_published', e.target.value === 'published')}
-                className="w-full px-4 py-2.5 rounded-xl bg-brand-card border border-white/10 text-white text-sm focus:outline-none focus:border-primary/50"
+                className="w-full px-4 py-2.5 rounded-xl surface-deep-sea border border-brand-edge text-white text-sm focus:outline-none focus:border-brand-primary"
               >
                 <option value="draft">Draft</option>
                 <option value="published">Published</option>
@@ -107,7 +107,7 @@ function ResourceForm({
               onChange={(e) => set('description', e.target.value)}
               placeholder="Short description of this resource..."
               rows={3}
-              className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-primary/50 resize-none"
+              className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-brand-edge text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-brand-primary resize-none"
             />
           </div>
 
@@ -117,7 +117,7 @@ function ResourceForm({
               value={form.file_url ?? ''}
               onChange={(e) => set('file_url', e.target.value)}
               placeholder="https://..."
-              className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-primary/50"
+              className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-brand-edge text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-brand-primary"
             />
           </div>
 
@@ -127,22 +127,22 @@ function ResourceForm({
               value={tagInput}
               onChange={(e) => setTagInput(e.target.value)}
               placeholder="n8n, OpenAI, WhatsApp"
-              className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-primary/50"
+              className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-brand-edge text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-brand-primary"
             />
           </div>
         </div>
 
-        <div className="px-6 pb-6 flex justify-end gap-3 border-t border-white/8 pt-4">
+        <div className="px-6 pb-6 flex justify-end gap-3 border-t border-brand-edge pt-4">
           <button
             onClick={onClose}
-            className="px-5 py-2.5 rounded-xl border border-white/10 text-brand-secondary text-sm font-medium hover:text-white transition-colors"
+            className="px-5 py-2.5 rounded-xl border border-brand-edge text-brand-secondary text-sm font-medium hover:text-white transition-colors"
           >
             Cancel
           </button>
           <button
             onClick={handleSave}
             disabled={saving || !form.title}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary-gradient text-white text-sm font-semibold hover:scale-105 transition-all disabled:opacity-50"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-xl accent-cta text-white text-sm font-semibold hover:scale-105 transition-all disabled:opacity-50"
           >
             {saving && <Loader2 size={13} className="animate-spin" />}
             {initial.id ? 'Save Changes' : 'Add Resource'}
@@ -160,6 +160,7 @@ export default function ResourcesPage() {
   const [editTarget, setEditTarget] = useState<Partial<Resource> | null>(null);
   const [saving, setSaving] = useState(false);
   const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [saveError, setSaveError] = useState('');
 
   const fetchResources = async () => {
     setLoading(true);
@@ -173,14 +174,20 @@ export default function ResourcesPage() {
   const handleSave = async (form: Partial<Resource>) => {
     setSaving(true);
     if (form.id) {
-      const { error } = await supabase.from('resources').update(form).eq('id', form.id);
-      if (!error) {
-        setResources((prev) => prev.map((r) => r.id === form.id ? { ...r, ...form } as Resource : r));
+      const { id, ...updateData } = form;
+      const { error } = await supabase.from('resources').update(updateData).eq('id', id);
+      if (error) {
+        setSaveError(error.message);
+      } else {
+        setResources((prev) => prev.map((r) => r.id === id ? { ...r, ...form } as Resource : r));
         setEditTarget(null);
       }
     } else {
-      const { data, error } = await supabase.from('resources').insert(form).select().single();
-      if (!error && data) {
+      const { id: _, ...insertData } = form;
+      const { data, error } = await supabase.from('resources').insert(insertData).select().single();
+      if (error) {
+        setSaveError(error.message);
+      } else if (data) {
         setResources((prev) => [data as Resource, ...prev]);
         setEditTarget(null);
       }
@@ -204,12 +211,12 @@ export default function ResourcesPage() {
     <div className="p-6 lg:p-8 space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="font-tight font-bold text-2xl text-white">Resources</h1>
+          <h1 className="font-tight font-semibold text-2xl text-white">Resources</h1>
           <p className="text-sm text-brand-secondary mt-0.5">{resources.length} resources</p>
         </div>
         <button
           onClick={() => setEditTarget({})}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary-gradient text-white text-sm font-semibold shadow-glow-sm hover:shadow-glow transition-all hover:scale-105"
+          className="flex items-center gap-2 px-4 py-2.5 rounded-xl accent-cta text-white text-sm font-semibold transition-all hover:scale-105"
         >
           <Plus size={15} /> Add Resource
         </button>
@@ -221,11 +228,11 @@ export default function ResourcesPage() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search resources..."
-          className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-primary/50"
+          className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-white/5 border border-brand-edge text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-brand-primary"
         />
       </div>
 
-      <div className="rounded-2xl border border-white/8 bg-brand-card/30 overflow-hidden">
+      <div className="rounded-2xl border border-brand-edge surface-deep-sea/30 overflow-hidden">
         {loading ? (
           <div className="flex items-center justify-center py-16 gap-2 text-brand-secondary text-sm">
             <RefreshCw size={15} className="animate-spin" /> Loading...
@@ -234,14 +241,14 @@ export default function ResourcesPage() {
           <div className="text-center py-16">
             <Package size={36} className="text-brand-secondary/20 mx-auto mb-3" />
             <p className="text-brand-secondary font-medium">No resources yet</p>
-            <button onClick={() => setEditTarget({})} className="mt-3 text-sm text-primary hover:text-primary/80">
+            <button onClick={() => setEditTarget({})} className="mt-3 text-sm text-brand-primary hover:text-brand-primary/80">
               Add your first resource
             </button>
           </div>
         ) : (
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-white/8">
+              <tr className="border-b border-brand-edge">
                 {['Title', 'Type', 'Tags', 'Status', 'Downloads', ''].map((h) => (
                   <th key={h} className="text-left px-5 py-3 text-xs font-medium text-brand-secondary/70 uppercase tracking-wider">{h}</th>
                 ))}
@@ -270,7 +277,7 @@ export default function ResourcesPage() {
                     </div>
                   </td>
                   <td className="px-5 py-3.5">
-                    <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium border ${resource.is_published ? 'bg-brand-success/10 text-brand-success border-brand-success/20' : 'bg-white/5 text-brand-secondary border-white/10'}`}>
+                    <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium border ${resource.is_published ? 'bg-brand-success/10 text-brand-success border-brand-success/20' : 'bg-white/5 text-brand-secondary border-brand-edge'}`}>
                       {resource.is_published ? <Eye size={10} /> : <EyeOff size={10} />}
                       {resource.is_published ? 'Published' : 'Draft'}
                     </span>
@@ -298,18 +305,25 @@ export default function ResourcesPage() {
         )}
       </div>
 
+      {saveError && (
+        <div className="fixed bottom-6 right-6 z-[60] px-4 py-3 rounded-xl bg-red-500/15 border border-red-500/30 text-red-400 text-sm shadow-card max-w-sm">
+          {saveError}
+          <button onClick={() => setSaveError('')} className="ml-3 text-red-400/60 hover:text-red-400">Dismiss</button>
+        </div>
+      )}
+
       {editTarget !== null && (
         <ResourceForm initial={editTarget} onSave={handleSave} onClose={() => setEditTarget(null)} saving={saving} />
       )}
 
       {deleteId && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-          <div className="glass-strong rounded-2xl border border-white/15 p-7 max-w-sm w-full shadow-card">
-            <h3 className="font-tight font-bold text-white mb-2">Delete Resource?</h3>
+          <div className="glass-strong rounded-2xl border border-brand-hairline p-7 max-w-sm w-full shadow-card">
+            <h3 className="font-tight font-semibold text-white mb-2">Delete Resource?</h3>
             <p className="text-sm text-brand-secondary mb-5">This action cannot be undone.</p>
             <div className="flex gap-3">
               <button onClick={() => handleDelete(deleteId)} className="flex-1 py-2.5 rounded-xl bg-red-500/20 border border-red-500/30 text-red-400 text-sm font-semibold hover:bg-red-500/30">Delete</button>
-              <button onClick={() => setDeleteId(null)} className="flex-1 py-2.5 rounded-xl border border-white/10 text-brand-secondary text-sm font-semibold hover:text-white">Cancel</button>
+              <button onClick={() => setDeleteId(null)} className="flex-1 py-2.5 rounded-xl border border-brand-edge text-brand-secondary text-sm font-semibold hover:text-white">Cancel</button>
             </div>
           </div>
         </div>

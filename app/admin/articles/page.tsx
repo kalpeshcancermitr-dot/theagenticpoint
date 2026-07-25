@@ -60,15 +60,15 @@ function ArticleForm({
 
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-end bg-black/60 backdrop-blur-sm">
-      <div className="h-full w-full max-w-2xl bg-brand-surface border-l border-white/10 flex flex-col shadow-card overflow-y-auto">
+      <div className="h-full w-full max-w-2xl surface-abyss border-l border-brand-edge flex flex-col shadow-card overflow-y-auto">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-white/8 sticky top-0 bg-brand-surface z-10">
-          <h2 className="font-tight font-bold text-white">{initial.id ? 'Edit Article' : 'New Article'}</h2>
+        <div className="flex items-center justify-between px-6 py-4 border-b border-brand-edge sticky top-0 surface-abyss z-10">
+          <h2 className="font-tight font-semibold text-white">{initial.id ? 'Edit Article' : 'New Article'}</h2>
           <div className="flex items-center gap-2">
             <button
               onClick={() => onSave(form)}
               disabled={saving || !form.title}
-              className="flex items-center gap-2 px-5 py-2 rounded-xl bg-primary-gradient text-white text-sm font-semibold hover:scale-105 transition-all disabled:opacity-50 disabled:hover:scale-100"
+              className="flex items-center gap-2 px-5 py-2 rounded-xl accent-cta text-white text-sm font-semibold hover:scale-105 transition-all disabled:opacity-50 disabled:hover:scale-100"
             >
               {saving ? <Loader2 size={13} className="animate-spin" /> : null}
               {initial.id ? 'Save Changes' : 'Publish'}
@@ -87,7 +87,7 @@ function ArticleForm({
               value={form.title ?? ''}
               onChange={(e) => set('title', e.target.value)}
               placeholder="Article title..."
-              className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-primary/50"
+              className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-brand-edge text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-brand-primary"
             />
           </div>
 
@@ -98,7 +98,7 @@ function ArticleForm({
                 value={form.slug ?? ''}
                 onChange={(e) => set('slug', e.target.value)}
                 placeholder="article-slug"
-                className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-primary/50 font-mono"
+                className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-brand-edge text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-brand-primary font-mono"
               />
             </div>
             <div className="space-y-1.5">
@@ -106,7 +106,7 @@ function ArticleForm({
               <select
                 value={form.status ?? 'draft'}
                 onChange={(e) => set('status', e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl bg-brand-card border border-white/10 text-white text-sm focus:outline-none focus:border-primary/50"
+                className="w-full px-4 py-2.5 rounded-xl surface-deep-sea border border-brand-edge text-white text-sm focus:outline-none focus:border-brand-primary"
               >
                 <option value="draft">Draft</option>
                 <option value="published">Published</option>
@@ -120,7 +120,7 @@ function ArticleForm({
               <select
                 value={form.category ?? ''}
                 onChange={(e) => set('category', e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl bg-brand-card border border-white/10 text-white text-sm focus:outline-none focus:border-primary/50"
+                className="w-full px-4 py-2.5 rounded-xl surface-deep-sea border border-brand-edge text-white text-sm focus:outline-none focus:border-brand-primary"
               >
                 <option value="">Select category...</option>
                 {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
@@ -132,7 +132,7 @@ function ArticleForm({
                 value={form.read_time ?? ''}
                 onChange={(e) => set('read_time', e.target.value)}
                 placeholder="8 min read"
-                className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-primary/50"
+                className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-brand-edge text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-brand-primary"
               />
             </div>
           </div>
@@ -144,7 +144,7 @@ function ArticleForm({
               onChange={(e) => set('excerpt', e.target.value)}
               placeholder="Short preview shown in article lists..."
               rows={2}
-              className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-primary/50 resize-none"
+              className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-brand-edge text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-brand-primary resize-none"
             />
           </div>
 
@@ -154,7 +154,7 @@ function ArticleForm({
               value={form.cover_image_url ?? ''}
               onChange={(e) => set('cover_image_url', e.target.value)}
               placeholder="https://..."
-              className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-primary/50"
+              className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-brand-edge text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-brand-primary"
             />
           </div>
 
@@ -164,7 +164,7 @@ function ArticleForm({
               value={form.author ?? ''}
               onChange={(e) => set('author', e.target.value)}
               placeholder="Author name"
-              className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-primary/50"
+              className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-brand-edge text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-brand-primary"
             />
           </div>
 
@@ -175,7 +175,7 @@ function ArticleForm({
               onChange={(e) => set('content', e.target.value)}
               placeholder="Write your article content in Markdown..."
               rows={16}
-              className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-primary/50 resize-y font-mono"
+              className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-brand-edge text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-brand-primary resize-y font-mono"
             />
           </div>
         </div>
@@ -191,6 +191,7 @@ export default function ArticlesPage() {
   const [editTarget, setEditTarget] = useState<Partial<Article> | null>(null);
   const [saving, setSaving] = useState(false);
   const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [saveError, setSaveError] = useState('');
 
   const fetchArticles = async () => {
     setLoading(true);
@@ -204,21 +205,27 @@ export default function ArticlesPage() {
   const handleSave = async (form: Partial<Article>) => {
     setSaving(true);
     if (form.id) {
+      const { id, ...updateData } = form;
       const { error } = await supabase.from('articles').update({
-        ...form,
+        ...updateData,
         updated_at: new Date().toISOString(),
         published_at: form.status === 'published' ? (form.published_at ?? new Date().toISOString()) : null,
-      }).eq('id', form.id);
-      if (!error) {
-        setArticles((prev) => prev.map((a) => a.id === form.id ? { ...a, ...form } as Article : a));
+      }).eq('id', id);
+      if (error) {
+        setSaveError(error.message);
+      } else {
+        setArticles((prev) => prev.map((a) => a.id === id ? { ...a, ...form } as Article : a));
         setEditTarget(null);
       }
     } else {
+      const { id: _, ...insertData } = form;
       const { data, error } = await supabase.from('articles').insert({
-        ...form,
+        ...insertData,
         published_at: form.status === 'published' ? new Date().toISOString() : null,
       }).select().single();
-      if (!error && data) {
+      if (error) {
+        setSaveError(error.message);
+      } else if (data) {
         setArticles((prev) => [data as Article, ...prev]);
         setEditTarget(null);
       }
@@ -243,12 +250,12 @@ export default function ArticlesPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="font-tight font-bold text-2xl text-white">Articles</h1>
+          <h1 className="font-tight font-semibold text-2xl text-white">Articles</h1>
           <p className="text-sm text-brand-secondary mt-0.5">{articles.length} articles total</p>
         </div>
         <button
           onClick={() => setEditTarget({})}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary-gradient text-white text-sm font-semibold shadow-glow-sm hover:shadow-glow transition-all hover:scale-105"
+          className="flex items-center gap-2 px-4 py-2.5 rounded-xl accent-cta text-white text-sm font-semibold transition-all hover:scale-105"
         >
           <Plus size={15} /> New Article
         </button>
@@ -261,12 +268,12 @@ export default function ArticlesPage() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search articles..."
-          className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-primary/50"
+          className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-white/5 border border-brand-edge text-white placeholder-brand-secondary/40 text-sm focus:outline-none focus:border-brand-primary"
         />
       </div>
 
       {/* Table */}
-      <div className="rounded-2xl border border-white/8 bg-brand-card/30 overflow-hidden">
+      <div className="rounded-2xl border border-brand-edge surface-deep-sea/30 overflow-hidden">
         {loading ? (
           <div className="flex items-center justify-center py-16 gap-2 text-brand-secondary text-sm">
             <RefreshCw size={15} className="animate-spin" /> Loading...
@@ -277,7 +284,7 @@ export default function ArticlesPage() {
             <p className="text-brand-secondary font-medium">No articles yet</p>
             <button
               onClick={() => setEditTarget({})}
-              className="mt-3 text-sm text-primary hover:text-primary/80"
+              className="mt-3 text-sm text-brand-primary hover:text-brand-primary/80"
             >
               Write your first article
             </button>
@@ -285,7 +292,7 @@ export default function ArticlesPage() {
         ) : (
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-white/8">
+              <tr className="border-b border-brand-edge">
                 {['Title', 'Category', 'Status', 'Author', 'Date', ''].map((h) => (
                   <th key={h} className="text-left px-5 py-3 text-xs font-medium text-brand-secondary/70 uppercase tracking-wider">{h}</th>
                 ))}
@@ -306,7 +313,7 @@ export default function ArticlesPage() {
                     <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium border ${
                       article.status === 'published'
                         ? 'bg-brand-success/10 text-brand-success border-brand-success/20'
-                        : 'bg-white/5 text-brand-secondary border-white/10'
+                        : 'bg-white/5 text-brand-secondary border-brand-edge'
                     }`}>
                       {article.status === 'published' ? <Eye size={10} /> : <EyeOff size={10} />}
                       {article.status}
@@ -337,6 +344,13 @@ export default function ArticlesPage() {
         )}
       </div>
 
+      {saveError && (
+        <div className="fixed bottom-6 right-6 z-[60] px-4 py-3 rounded-xl bg-red-500/15 border border-red-500/30 text-red-400 text-sm shadow-card max-w-sm">
+          {saveError}
+          <button onClick={() => setSaveError('')} className="ml-3 text-red-400/60 hover:text-red-400">Dismiss</button>
+        </div>
+      )}
+
       {editTarget !== null && (
         <ArticleForm
           initial={editTarget}
@@ -349,8 +363,8 @@ export default function ArticlesPage() {
       {/* Delete confirm */}
       {deleteId && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-          <div className="glass-strong rounded-2xl border border-white/15 p-7 max-w-sm w-full shadow-card">
-            <h3 className="font-tight font-bold text-white mb-2">Delete Article?</h3>
+          <div className="glass-strong rounded-2xl border border-brand-hairline p-7 max-w-sm w-full shadow-card">
+            <h3 className="font-tight font-semibold text-white mb-2">Delete Article?</h3>
             <p className="text-sm text-brand-secondary mb-5">This action cannot be undone.</p>
             <div className="flex gap-3">
               <button
@@ -361,7 +375,7 @@ export default function ArticlesPage() {
               </button>
               <button
                 onClick={() => setDeleteId(null)}
-                className="flex-1 py-2.5 rounded-xl border border-white/10 text-brand-secondary text-sm font-semibold hover:text-white transition-colors"
+                className="flex-1 py-2.5 rounded-xl border border-brand-edge text-brand-secondary text-sm font-semibold hover:text-white transition-colors"
               >
                 Cancel
               </button>

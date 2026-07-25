@@ -7,12 +7,13 @@ import { supabase } from '@/lib/supabase';
 import {
   Zap, LayoutDashboard, Users, FileText, Package,
   Briefcase, Settings, LogOut, Menu, X, ChevronRight,
-  ExternalLink, Loader2, MessageSquare
+  ExternalLink, Loader2, MessageSquare, Bot
 } from 'lucide-react';
 
 const navItems = [
   { label: 'Dashboard', href: '/admin', icon: LayoutDashboard, exact: true },
   { label: 'Leads', href: '/admin/leads', icon: Users },
+  { label: 'AI Agents', href: '/admin/agents', icon: Bot },
   { label: 'Articles', href: '/admin/articles', icon: FileText },
   { label: 'Resources', href: '/admin/resources', icon: Package },
   { label: 'Portfolio', href: '/admin/portfolio', icon: Briefcase },
@@ -48,18 +49,18 @@ function AdminSidebar({
 
       {/* Sidebar */}
       <aside
-        className={`fixed lg:static inset-y-0 left-0 z-50 w-60 flex flex-col bg-brand-surface border-r border-white/8 transition-transform duration-300 ${
+        className={`fixed lg:static inset-y-0 left-0 z-50 w-60 flex flex-col surface-abyss border-r border-brand-edge transition-transform duration-300 ${
           mobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >
         {/* Logo */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-white/8">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-brand-edge">
           <Link href="/admin" className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-primary-gradient flex items-center justify-center shadow-glow-sm">
+            <div className="w-8 h-8 rounded-lg accent-cta flex items-center justify-center">
               <Zap size={15} className="text-white fill-white" />
             </div>
             <div>
-              <span className="font-tight font-bold text-sm text-white block leading-none">AgenticPoint</span>
+              <span className="font-tight font-semibold text-sm text-white block leading-none">AgenticPoint</span>
               <span className="text-xs text-brand-secondary leading-none">Admin</span>
             </div>
           </Link>
@@ -94,7 +95,7 @@ function AdminSidebar({
             );
           })}
 
-          <div className="pt-3 mt-3 border-t border-white/8">
+          <div className="pt-3 mt-3 border-t border-brand-edge">
             <Link
               href="/"
               target="_blank"
@@ -107,10 +108,10 @@ function AdminSidebar({
         </nav>
 
         {/* User + Logout */}
-        <div className="px-3 py-4 border-t border-white/8 space-y-1">
+        <div className="px-3 py-4 border-t border-brand-edge space-y-1">
           <div className="flex items-center gap-2.5 px-3 py-2">
-            <div className="w-8 h-8 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center">
-              <span className="text-xs font-bold text-primary">
+            <div className="w-8 h-8 rounded-full bg-brand-primary/20 border border-brand-primary/30 flex items-center justify-center">
+              <span className="text-xs font-semibold text-brand-primary">
                 {user?.email?.charAt(0).toUpperCase() ?? 'A'}
               </span>
             </div>
@@ -151,6 +152,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) {
         router.replace('/admin/login');
+        setChecking(false);
       } else {
         setUser({ email: session.user.email });
         setChecking(false);
@@ -184,9 +186,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   if (checking) {
     return (
-      <div className="min-h-screen bg-brand-bg flex items-center justify-center">
+      <div className="min-h-screen surface-void flex items-center justify-center">
         <div className="flex flex-col items-center gap-3">
-          <Loader2 size={28} className="text-primary animate-spin" />
+          <Loader2 size={28} className="text-brand-primary animate-spin" />
           <p className="text-sm text-brand-secondary">Loading dashboard...</p>
         </div>
       </div>
@@ -194,7 +196,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   }
 
   return (
-    <div className="flex h-screen bg-brand-bg overflow-hidden">
+    <div className="flex h-screen surface-void overflow-hidden">
       <AdminSidebar
         user={user}
         onLogout={handleLogout}
@@ -204,7 +206,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Top bar (mobile) */}
-        <div className="lg:hidden flex items-center gap-3 px-4 py-3 border-b border-white/8 bg-brand-surface">
+        <div className="lg:hidden flex items-center gap-3 px-4 py-3 border-b border-brand-edge surface-abyss">
           <button
             onClick={() => setMobileOpen(true)}
             className="p-1.5 rounded-lg text-brand-secondary hover:text-white"
