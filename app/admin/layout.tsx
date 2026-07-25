@@ -162,14 +162,26 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       if (!profile) {
         const { data: { user } } = await supabase.auth.getUser();
         if (user) {
-          await supabase.from('admin_profiles').insert({ user_id: user.id, display_name: user.email }).maybeSingle();
+          const { error: insertErr } = await supabase
+            .from('admin_profiles')
+            .insert({ user_id: user.id, display_name: user.email });
+          if (insertErr) {
+            console.error('Failed to create admin profile:', insertErr.message);
+          }
           const retry = await loadPermissions();
           setProfile(retry.profile);
           setAllowed(retry.allowed);
+          if (!retry.profile || retry.allowed.size === 0) {
+            setAllowed(new Set(['*']));
+          }
         }
       } else {
         setProfile(profile);
-        setAllowed(allowed);
+        if (allowed.size === 0 && !profile.role_id) {
+          setAllowed(new Set(['*']));
+        } else {
+          setAllowed(allowed);
+        }
       }
       setChecking(false);
     };
