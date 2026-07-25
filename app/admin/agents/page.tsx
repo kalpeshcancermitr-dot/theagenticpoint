@@ -7,8 +7,19 @@ import { Send, Bot, Trash2, Plus, X, Loader2, Zap, Save, RotateCcw } from 'lucid
 type Message = { role: 'user' | 'assistant'; content: string };
 
 const PROVIDERS = [
+  {
+    id: 'gemini',
+    label: 'Google Gemini',
+    models: [
+      'gemini-3-flash-preview',
+      'gemini-3.5-flash',
+      'gemini-3.6-flash',
+      'gemini-3.5-flash-lite',
+      'gemini-2.5-pro',
+      'gemini-2.5-flash',
+    ],
+  },
   { id: 'openai', label: 'OpenAI', models: ['gpt-4o-mini', 'gpt-4o', 'gpt-4.1-mini', 'gpt-4.1'] },
-  { id: 'gemini', label: 'Google Gemini', models: ['gemini-1.5-flash', 'gemini-1.5-pro', 'gemini-2.0-flash'] },
   { id: 'anthropic', label: 'Anthropic', models: ['claude-3-5-haiku-20241022', 'claude-3-5-sonnet-20241022'] },
 ];
 
@@ -41,7 +52,7 @@ type Agent = {
 
 const emptyForm = {
   slug: '', name: '', description: '', category: '', icon: 'Bot', color_theme: 'primary',
-  provider: 'openai', model: 'gpt-4o-mini', system_prompt: 'You are a helpful assistant.',
+  provider: 'gemini', model: 'gemini-3-flash-preview', system_prompt: 'You are a helpful assistant.',
   welcome_message: '', suggested_prompts: [] as string[],
   temperature: 0.7, max_tokens: 500, top_p: 1.0,
   is_active: true, is_featured: false, sort_order: 0,
