@@ -4,21 +4,29 @@ import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
+import { loadPermissions, canView, AdminPermsProvider, type AdminUserProfile } from '@/lib/admin-auth';
 import {
   Zap, LayoutDashboard, Users, FileText, Package,
   Briefcase, Settings, LogOut, Menu, X, ChevronRight,
-  ExternalLink, Loader2, MessageSquare, Bot
+  ExternalLink, Loader2, MessageSquare, Bot, Shield,
+  Wrench, Lightbulb, type LucideIcon
 } from 'lucide-react';
 
-const navItems = [
-  { label: 'Dashboard', href: '/admin', icon: LayoutDashboard, exact: true },
-  { label: 'Leads', href: '/admin/leads', icon: Users },
-  { label: 'AI Agents', href: '/admin/agents', icon: Bot },
-  { label: 'Articles', href: '/admin/articles', icon: FileText },
-  { label: 'Resources', href: '/admin/resources', icon: Package },
-  { label: 'Portfolio', href: '/admin/portfolio', icon: Briefcase },
-  { label: 'Testimonials', href: '/admin/testimonials', icon: MessageSquare },
-  { label: 'Settings', href: '/admin/settings', icon: Settings },
+type NavItem = { label: string; href: string; icon: LucideIcon; module?: string; exact?: boolean };
+
+const navItems: NavItem[] = [
+  { label: 'Dashboard', href: '/admin', icon: LayoutDashboard, module: 'dashboard', exact: true },
+  { label: 'Leads', href: '/admin/leads', icon: Users, module: 'leads' },
+  { label: 'AI Agents', href: '/admin/agents', icon: Bot, module: 'agents' },
+  { label: 'Articles', href: '/admin/articles', icon: FileText, module: 'articles' },
+  { label: 'Resources', href: '/admin/resources', icon: Package, module: 'resources' },
+  { label: 'Services', href: '/admin/services', icon: Wrench, module: 'services' },
+  { label: 'Solutions', href: '/admin/solutions', icon: Lightbulb, module: 'solutions' },
+  { label: 'Portfolio', href: '/admin/portfolio', icon: Briefcase, module: 'portfolio' },
+  { label: 'Testimonials', href: '/admin/testimonials', icon: MessageSquare, module: 'testimonials' },
+  { label: 'Users', href: '/admin/users', icon: Users, module: 'users' },
+  { label: 'Roles', href: '/admin/roles', icon: Shield, module: 'roles' },
+  { label: 'Settings', href: '/admin/settings', icon: Settings, module: 'settings' },
 ];
 
 function AdminSidebar({
@@ -26,34 +34,32 @@ function AdminSidebar({
   onLogout,
   mobileOpen,
   onMobileClose,
+  allowed,
 }: {
-  user: { email?: string } | null;
+  user: AdminUserProfile | null;
   onLogout: () => void;
   mobileOpen: boolean;
   onMobileClose: () => void;
+  allowed: Set<string>;
 }) {
   const pathname = usePathname();
 
-  const isActive = (item: { href: string; exact?: boolean }) =>
+  const isActive = (item: NavItem) =>
     item.exact ? pathname === item.href : pathname.startsWith(item.href);
+
+  const visible = navItems.filter((item) => !item.module || canView(allowed, item.module));
 
   return (
     <>
-      {/* Mobile overlay */}
       {mobileOpen && (
-        <div
-          className="fixed inset-0 z-40 bg-black/60 lg:hidden"
-          onClick={onMobileClose}
-        />
+        <div className="fixed inset-0 z-40 bg-black/60 lg:hidden" onClick={onMobileClose} />
       )}
 
-      {/* Sidebar */}
       <aside
         className={`fixed lg:static inset-y-0 left-0 z-50 w-60 flex flex-col surface-abyss border-r border-brand-edge transition-transform duration-300 ${
           mobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >
-        {/* Logo */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-brand-edge">
           <Link href="/admin" className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-lg accent-cta flex items-center justify-center">
@@ -64,17 +70,13 @@ function AdminSidebar({
               <span className="text-xs text-brand-secondary leading-none">Admin</span>
             </div>
           </Link>
-          <button
-            onClick={onMobileClose}
-            className="lg:hidden p-1 rounded-lg text-brand-secondary hover:text-white"
-          >
+          <button onClick={onMobileClose} className="lg:hidden p-1 rounded-lg text-brand-secondary hover:text-white">
             <X size={18} />
           </button>
         </div>
 
-        {/* Nav */}
         <nav className="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto">
-          {navItems.map((item) => {
+          {visible.map((item) => {
             const Icon = item.icon;
             const active = isActive(item);
             return (
@@ -84,13 +86,13 @@ function AdminSidebar({
                 onClick={onMobileClose}
                 className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-150 ${
                   active
-                    ? 'bg-primary/12 text-white border border-primary/20'
+                    ? 'bg-brand-primary/12 text-white border border-brand-primary/30'
                     : 'text-brand-secondary hover:text-white hover:bg-white/5'
                 }`}
               >
-                <Icon size={16} className={active ? 'text-primary' : ''} />
+                <Icon size={16} className={active ? 'text-brand-primary' : ''} />
                 {item.label}
-                {active && <ChevronRight size={13} className="ml-auto text-primary/60" />}
+                {active && <ChevronRight size={13} className="ml-auto text-brand-primary/60" />}
               </Link>
             );
           })}
@@ -107,17 +109,16 @@ function AdminSidebar({
           </div>
         </nav>
 
-        {/* User + Logout */}
         <div className="px-3 py-4 border-t border-brand-edge space-y-1">
           <div className="flex items-center gap-2.5 px-3 py-2">
             <div className="w-8 h-8 rounded-full bg-brand-primary/20 border border-brand-primary/30 flex items-center justify-center">
               <span className="text-xs font-semibold text-brand-primary">
-                {user?.email?.charAt(0).toUpperCase() ?? 'A'}
+                {user?.display_name?.charAt(0).toUpperCase() ?? user?.email?.charAt(0).toUpperCase() ?? 'A'}
               </span>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-xs font-medium text-white truncate">{user?.email ?? 'Admin'}</p>
-              <p className="text-xs text-brand-secondary">Administrator</p>
+              <p className="text-xs font-medium text-white truncate">{user?.display_name ?? user?.email ?? 'Admin'}</p>
+              <p className="text-xs text-brand-secondary">{user?.role?.name ?? 'No role'}</p>
             </div>
           </div>
           <button
@@ -135,7 +136,8 @@ function AdminSidebar({
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const [checking, setChecking] = useState(true);
-  const [user, setUser] = useState<{ email?: string } | null>(null);
+  const [profile, setProfile] = useState<AdminUserProfile | null>(null);
+  const [allowed, setAllowed] = useState<Set<string>>(new Set());
   const [mobileOpen, setMobileOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
@@ -148,25 +150,40 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       return;
     }
 
-    const getSession = async () => {
+    const init = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) {
         router.replace('/admin/login');
         setChecking(false);
-      } else {
-        setUser({ email: session.user.email });
-        setChecking(false);
+        return;
       }
+
+      const { profile, allowed } = await loadPermissions();
+      if (!profile) {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+          await supabase.from('admin_profiles').insert({ user_id: user.id, display_name: user.email }).maybeSingle();
+          const retry = await loadPermissions();
+          setProfile(retry.profile);
+          setAllowed(retry.allowed);
+        }
+      } else {
+        setProfile(profile);
+        setAllowed(allowed);
+      }
+      setChecking(false);
     };
 
-    getSession();
+    init();
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       (async () => {
         if (!session && !isLoginPage) {
           router.replace('/admin/login');
         } else if (session) {
-          setUser({ email: session.user.email });
+          const { profile, allowed } = await loadPermissions();
+          setProfile(profile);
+          setAllowed(allowed);
         }
       })();
     });
@@ -196,31 +213,29 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   }
 
   return (
-    <div className="flex h-screen surface-void overflow-hidden">
-      <AdminSidebar
-        user={user}
-        onLogout={handleLogout}
-        mobileOpen={mobileOpen}
-        onMobileClose={() => setMobileOpen(false)}
-      />
+    <AdminPermsProvider value={{ profile, allowed, isSuperAdmin: allowed.has('*') }}>
+      <div className="flex h-screen surface-void overflow-hidden">
+        <AdminSidebar
+          user={profile}
+          onLogout={handleLogout}
+          mobileOpen={mobileOpen}
+          onMobileClose={() => setMobileOpen(false)}
+          allowed={allowed}
+        />
 
-      <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Top bar (mobile) */}
-        <div className="lg:hidden flex items-center gap-3 px-4 py-3 border-b border-brand-edge surface-abyss">
-          <button
-            onClick={() => setMobileOpen(true)}
-            className="p-1.5 rounded-lg text-brand-secondary hover:text-white"
-          >
-            <Menu size={20} />
-          </button>
-          <span className="font-tight font-semibold text-white text-sm">Admin</span>
+        <div className="flex-1 flex flex-col overflow-hidden">
+          <div className="lg:hidden flex items-center gap-3 px-4 py-3 border-b border-brand-edge surface-abyss">
+            <button onClick={() => setMobileOpen(true)} className="p-1.5 rounded-lg text-brand-secondary hover:text-white">
+              <Menu size={20} />
+            </button>
+            <span className="font-tight font-semibold text-white text-sm">Admin</span>
+          </div>
+
+          <main className="flex-1 overflow-y-auto">
+            {children}
+          </main>
         </div>
-
-        {/* Page content */}
-        <main className="flex-1 overflow-y-auto">
-          {children}
-        </main>
       </div>
-    </div>
+    </AdminPermsProvider>
   );
 }
