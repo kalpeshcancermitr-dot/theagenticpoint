@@ -1,4 +1,5 @@
 import { Compass, PencilRuler, Rocket } from 'lucide-react';
+import MobileCarousel from '@/components/ui/mobile-carousel';
 
 const steps = [
   {
@@ -21,6 +22,27 @@ const steps = [
   },
 ];
 
+function StepCard({ step, i }: { step: typeof steps[number]; i: number }) {
+  const Icon = step.icon;
+  return (
+    <div className="relative card-elevated card-hover space-y-5 h-full">
+      <div className="flex items-start justify-between">
+        <div className="w-11 h-11 rounded-xl surface-cobalt border border-brand-hairline flex items-center justify-center">
+          <Icon size={20} className="text-brand-primary" />
+        </div>
+        <span className="font-mono text-xs text-brand-slate">{step.phase}</span>
+      </div>
+      <div className="space-y-2">
+        <h3 className="font-tight font-medium text-lg text-white">{step.title}</h3>
+        <p className="text-sm text-brand-secondary leading-relaxed font-light">{step.description}</p>
+      </div>
+      {i < steps.length - 1 && (
+        <div className="hidden md:block absolute top-1/2 -right-3 w-6 h-px bg-brand-hairline" />
+      )}
+    </div>
+  );
+}
+
 export default function HowItWorks() {
   return (
     <section className="section-pad surface-abyss">
@@ -37,30 +59,18 @@ export default function HowItWorks() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
-          {steps.map((step, i) => {
-            const Icon = step.icon;
-            return (
-              <div
-                key={step.title}
-                className="relative card-elevated card-hover space-y-5"
-              >
-                <div className="flex items-start justify-between">
-                  <div className="w-11 h-11 rounded-xl surface-cobalt border border-brand-hairline flex items-center justify-center">
-                    <Icon size={20} className="text-brand-primary" />
-                  </div>
-                  <span className="font-mono text-xs text-brand-slate">{step.phase}</span>
-                </div>
-                <div className="space-y-2">
-                  <h3 className="font-tight font-medium text-lg text-white">{step.title}</h3>
-                  <p className="text-sm text-brand-secondary leading-relaxed font-light">{step.description}</p>
-                </div>
-                {i < steps.length - 1 && (
-                  <div className="hidden md:block absolute top-1/2 -right-3 w-6 h-px bg-brand-hairline" />
-                )}
-              </div>
-            );
-          })}
+        {/* Mobile carousel */}
+        <MobileCarousel className="mb-2" itemWidth="w-[88%]">
+          {steps.map((step, i) => (
+            <StepCard key={step.title} step={step} i={i} />
+          ))}
+        </MobileCarousel>
+
+        {/* Desktop grid */}
+        <div className="hidden md:grid md:grid-cols-3 gap-6">
+          {steps.map((step, i) => (
+            <StepCard key={step.title} step={step} i={i} />
+          ))}
         </div>
       </div>
     </section>
