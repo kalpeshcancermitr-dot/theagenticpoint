@@ -58,10 +58,21 @@ async function callOpenAI(agent: AgentConfig, messages: ChatMessage[]): Promise<
   return { text, tokensUsed };
 }
 
+const DEPRECATED_GEMINI_MODELS: Record<string, string> = {
+  'gemini-2.5-pro': 'gemini-3.5-flash',
+  'gemini-2.5-flash': 'gemini-3.5-flash',
+  'gemini-2.5-flash-lite': 'gemini-3.1-flash-lite',
+};
+
+function resolveGeminiModel(model: string): string {
+  return DEPRECATED_GEMINI_MODELS[model] ?? model;
+}
+
 async function callGemini(agent: AgentConfig, messages: ChatMessage[]): Promise<ProviderResult> {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) throw new Error('GEMINI_API_KEY is not configured');
 
+  const model = resolveGeminiModel(agent.model);
   const systemMessages = messages.filter((m) => m.role === 'system');
   const systemInstruction = systemMessages.map((m) => m.content).join('\n\n');
   const contents = messages
@@ -71,22 +82,36 @@ async function callGemini(agent: AgentConfig, messages: ChatMessage[]): Promise<
       parts: [{ text: m.content }],
     }));
 
-  const res = await fetchWithTimeout(
-    `https://generativelanguage.googleapis.com/v1beta/models/${agent.model}:generateContent?key=${apiKey}`,
+  const buildBody = (mdl: string) => JSON.stringify({
+    systemInstruction: systemInstruction ? { parts: [{ text: systemInstruction }] } : undefined,
+    contents,
+    generationConfig: {
+      temperature: agent.temperature,
+      maxOutputTokens: agent.max_tokens,
+      topP: agent.top_p,
+      thinkingConfig: { thinkingBudget: 0 },
+    },
+  });
+
+  let res = await fetchWithTimeout(
+    `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        systemInstruction: systemInstruction ? { parts: [{ text: systemInstruction }] } : undefined,
-        contents,
-        generationConfig: {
-          temperature: agent.temperature,
-          maxOutputTokens: agent.max_tokens,
-          topP: agent.top_p,
-        },
-      }),
+      body: buildBody(model),
     },
   );
+
+  if (res.status === 404 && model !== 'gemini-flash-latest') {
+    res = await fetchWithTimeout(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${apiKey}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: buildBody('gemini-flash-latest'),
+      },
+    );
+  }
 
   if (!res.ok) {
     const body = await res.text().catch(() => '');
@@ -96,6 +121,10 @@ async function callGemini(agent: AgentConfig, messages: ChatMessage[]): Promise<
   const data = await res.json();
   const text = data?.candidates?.[0]?.content?.parts?.[0]?.text ?? '';
   const tokensUsed = data?.usageMetadata?.totalTokenCount ?? 0;
+  if (!text) {
+    const reason = data?.candidates?.[0]?.finishReason ?? 'UNKNOWN';
+    throw new Error(`Empty response from Gemini (finishReason: ${reason}). Try increasing max_tokens or use a different model.`);
+  }
   return { text, tokensUsed };
 }
 
