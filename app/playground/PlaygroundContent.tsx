@@ -80,8 +80,13 @@ export default function PlaygroundContent() {
     setSessionId(getSessionId());
     fetch('/api/agents/list')
       .then(async (res) => {
-        if (!res.ok) throw new Error('Failed to load');
-        const data = await res.json();
+        if (!res.ok) {
+          const data = await res.json().catch(() => ({}));
+          throw new Error(data.error || `Failed to load (HTTP ${res.status})`);
+        }
+        return res.json();
+      })
+      .then((data) => {
         setAgents(data.agents ?? []);
         if (data.agents?.length > 0) {
           setActiveAgent(data.agents[0]);
@@ -90,7 +95,7 @@ export default function PlaygroundContent() {
           }
         }
       })
-      .catch((e) => setLoadError(e.message))
+      .catch((e) => setLoadError(e.message || 'Unable to connect. Please try again.'))
       .finally(() => setLoading(false));
   }, []);
 
@@ -153,10 +158,17 @@ export default function PlaygroundContent() {
   if (loadError) {
     return (
       <div className="min-h-screen flex items-center justify-center px-6 surface-void">
-        <div className="text-center max-w-md">
+        <div className="text-center max-w-md space-y-4">
           <AlertCircle size={32} className="text-rose-400 mx-auto mb-3" />
           <p className="text-white font-medium">Couldn&apos;t load the playground</p>
           <p className="text-brand-secondary text-sm mt-1">{loadError}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="pill-cta inline-flex items-center gap-2 mt-4"
+          >
+            <RotateCcw size={14} />
+            Try Again
+          </button>
         </div>
       </div>
     );

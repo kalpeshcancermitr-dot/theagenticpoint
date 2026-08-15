@@ -27,8 +27,9 @@ export async function GET() {
     .order('name', { ascending: true });
 
   if (error) {
+    console.error('[agents/list] Supabase error:', error.message);
     return NextResponse.json(
-      { error: 'Failed to load agents.' },
+      { error: `Failed to load agents: ${error.message}` },
       { status: 500 },
     );
   }

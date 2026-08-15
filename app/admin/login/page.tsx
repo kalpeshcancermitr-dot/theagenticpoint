@@ -18,20 +18,35 @@ export default function AdminLoginPage() {
     setLoading(true);
     setError('');
 
-    const { error: authError } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    try {
+      const { error: authError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
 
-    setLoading(false);
-    if (authError) {
-      setError(authError.message === 'Invalid login credentials'
-        ? 'Invalid email or password. Please try again.'
-        : authError.message
-      );
-    } else {
-      router.push('/admin');
+      if (authError) {
+        const msg = authError.message;
+        if (msg.includes('Invalid login credentials')) {
+          setError('Invalid email or password. Please try again.');
+        } else if (msg.includes('rate limit') || msg.includes('Rate limit')) {
+          setError('Too many attempts. Please wait a moment and try again.');
+        } else if (msg.includes('fetch') || msg.includes('network') || msg.includes('Failed to fetch')) {
+          setError('Cannot connect to the server. Please check your internet connection and try again.');
+        } else {
+          setError(msg);
+        }
+      } else {
+        router.push('/admin');
+      }
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'An unexpected error occurred.';
+      if (msg.includes('fetch') || msg.includes('network') || msg.includes('Failed to fetch')) {
+        setError('Cannot connect to the server. Please try again in a moment.');
+      } else {
+        setError(msg);
+      }
     }
+    setLoading(false);
   };
 
   return (
